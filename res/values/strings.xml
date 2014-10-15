@@ -23,5 +23,16 @@
         <item>Savannah</item>
     </string-array>
     <string name="mainColor">#E5C41A</string>
+    <string-array name="categories">
+        <item >Food</item>
+        <item >Concerts</item>
+        <item >Festivales</item>
+         <item >Nightlife</item>
+        <item >Shopping</item>
+        <item >Family</item>
+        <item>Sports</item>
+        <item> Organizational</item>
+        <item> Other</item>
+    </string-array>
 
 </resources>

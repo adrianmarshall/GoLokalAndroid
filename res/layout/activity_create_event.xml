@@ -6,7 +6,7 @@
     <RelativeLayout
         android:id="@+id/ceRelativeL"
         android:layout_width="match_parent"
-        android:layout_height="418dp" >
+        android:layout_height="600dp" >
         
             <TextView
 	        android:id="@+id/textView1"
@@ -17,7 +17,7 @@
 	        android:layout_marginTop="27dp"
 	        android:text="Create your Event with Go Lokal"
 	        android:textAppearance="?android:attr/textAppearanceLarge"
-	        android:textColor="@string/mainColor" />
+	        android:textColor="#E5C41A" />
 
 	    <TextView
 	        android:id="@+id/textView2"
@@ -28,7 +28,7 @@
 	        android:layout_below="@+id/textView1"
 	        android:layout_marginTop="21dp"
 	        android:text="Please fill in all the fields below: " 
-	        android:textColor="@string/mainColor"
+	        android:textColor="#E5C41A"
 	        />
 	    
 	     <TextView
@@ -40,7 +40,7 @@
 	        android:layout_below="@+id/textView2"
 	        android:layout_marginTop="21dp"
 	        android:text="Title: " 
-	        android:textColor="@string/mainColor"
+	        android:textColor="#E5C41A"
 	        />
 	     
 	     <TextView
@@ -52,7 +52,7 @@
 	        android:layout_below="@+id/ceTitle"
 	        android:layout_marginTop="10dp"
 	        android:text="Location Name: " 
-	        android:textColor="@string/mainColor"
+	        android:textColor="#E5C41A"
 	        />
 	    
 	     
@@ -65,7 +65,7 @@
 	        android:layout_below="@+id/ceLocationName"
 	        android:layout_marginTop="10dp"
 	        android:text="Address Line 1: " 
-	        android:textColor="@string/mainColor"
+	        android:textColor="#E5C41A"
 	        />
 	     
 	     <TextView
@@ -77,7 +77,7 @@
 	        android:layout_below="@+id/ceAddressLine1"
 	        android:layout_marginTop="10dp"
 	        android:text="Address Line 2: " 
-	        android:textColor="@string/mainColor"
+	        android:textColor="#E5C41A"
 	        />
 	     
 	       <TextView
@@ -89,7 +89,7 @@
 	        android:layout_below="@+id/ceAddressLine2"
 	        android:layout_marginTop="10dp"
 	        android:text="City: " 
-	        android:textColor="@string/mainColor"
+	        android:textColor="#E5C41A"
 	        />
 
 	       <TextView
@@ -100,7 +100,7 @@
 	           android:layout_alignBottom="@+id/ceCity"
 	           android:layout_centerHorizontal="true"
 	           android:text="State: "
-	           android:textColor="@string/mainColor" />
+	           android:textColor="#E5C41A" />
 
 	          <TextView
 	              android:id="@+id/cePhoto"
@@ -111,7 +111,7 @@
 	              android:layout_marginTop="24dp"
 	              android:text="Pick Event Photo to use: "
 	              android:textAppearance="?android:attr/textAppearanceSmall"
-	              android:textColor="@string/mainColor" />
+	              android:textColor="#E5C41A" />
 
 	          <TextView
 	              android:id="@+id/ceDescription"
@@ -121,29 +121,18 @@
 	              android:layout_below="@+id/cePhoto"
 	              android:layout_marginTop="10dp"
 	              android:text="Description: "
-	              android:textColor="@string/mainColor"
-	              android:textAppearance="?android:attr/textAppearanceSmall" />
-
-	          <TextView
-	              android:id="@+id/ceCategory"
-	              android:layout_width="wrap_content"
-	              android:layout_height="wrap_content"
-	              android:layout_alignParentLeft="true"
-	              android:layout_below="@+id/ceDescription"
-	              android:layout_marginTop="10dp"
-	              android:text="Pick Category: "
-	              android:textColor="@string/mainColor"
+	              android:textColor="#E5C41A"
 	              android:textAppearance="?android:attr/textAppearanceSmall" />
 
 	          <TextView
 	              android:id="@+id/ceEndTime"
 	              android:layout_width="wrap_content"
 	              android:layout_height="wrap_content"
-	              android:layout_alignBottom="@+id/timePicker2"
+	              android:layout_alignBottom="@+id/btnEndTime"
 	              android:layout_toRightOf="@+id/cePhoto"
 	              android:text="End Time:"
 	              android:textAppearance="?android:attr/textAppearanceSmall"
-	              android:textColor="@string/mainColor" />
+	              android:textColor="#E5C41A" />
 
 	          <EditText
 	              android:id="@+id/editLocationName"
@@ -229,10 +218,10 @@
 	              android:layout_marginTop="10dp"
 	              android:text="Zipcode"
 	              android:textAppearance="?android:attr/textAppearanceSmall"
-	              android:textColor="@string/mainColor" />
+	              android:textColor="#E5C41A" />
 
 	          <EditText
-	              android:id="@+id/editText1"
+	              android:id="@+id/editZipcode"
 	              android:layout_width="wrap_content"
 	              android:layout_height="wrap_content"
 	              android:layout_alignRight="@+id/editCity"
@@ -248,45 +237,126 @@
 	              android:layout_width="wrap_content"
 	              android:layout_height="wrap_content"
 	              android:layout_alignParentLeft="true"
-	              android:layout_below="@+id/editText1"
+	              android:layout_below="@+id/editZipcode"
 	              android:layout_marginTop="62dp"
 	              android:text="Start Time: "
 	              android:textAppearance="?android:attr/textAppearanceSmall"
-	              android:textColor="@string/mainColor" />
+	              android:textColor="#E5C41A" />
+
+	          <DatePicker
+	              android:id="@+id/datePicker1"
+	              android:layout_width="wrap_content"
+	              android:layout_height="wrap_content"
+	              android:layout_alignRight="@+id/cePhoto"
+	              android:layout_below="@+id/editZipcode"
+	              android:layout_marginTop="16dp"
+	              android:text="Pick Date"
+	              android:visibility="gone"
+	               />
+
+	          <Button
+	              android:id="@+id/btnEndTime"
+	              android:layout_width="wrap_content"
+	              android:layout_height="25dp"
+	              android:layout_alignRight="@+id/textView1"
+	              android:layout_alignTop="@+id/btnStartTimePicker"
+	              android:text="Pick End Time"
+	              android:textSize="8dp"
+	              android:background="#E5C41A"
+	              android:textColor="#ffffff" />
+
+	          <Button
+	              android:id="@+id/btnSubmit"
+	              style="?android:attr/buttonStyleSmall"
+	              android:layout_width="wrap_content"
+	              android:layout_below="@+id/ceCategory"
+	              android:layout_height="wrap_content"
+	              android:layout_alignParentBottom="true"
+	              android:layout_alignRight="@+id/editLocationName"
+	              android:text="Submit Event"
+	              android:textColor="#ffffff"
+				  android:background="#E5C41A"/>
+
+	          <Button
+	              android:id="@+id/btnPhoto"
+	              style="?android:attr/buttonStyleSmall"
+	              android:layout_width="wrap_content"
+	              android:layout_height="25dp"
+	              android:layout_alignBaseline="@+id/cePhoto"
+	              android:layout_alignBottom="@+id/cePhoto"
+	              android:layout_alignLeft="@+id/ceEndTime"
+	              android:text="Photo..."
+	              android:textSize="8sp" 
+	              android:background="#E5C41A"
+	              android:textColor="#FFFFFF"/>
+
+	          <TextView
+	              android:id="@+id/ceCategory"
+	              android:layout_width="wrap_content"
+	              android:layout_height="wrap_content"
+	              android:layout_alignParentLeft="true"
+	              android:layout_below="@+id/editDescription"
+	              android:layout_marginTop="30dp"
+	              android:text="Pick Category: "
+	              android:textAppearance="?android:attr/textAppearanceSmall"
+	              android:textColor="#E5C41A" />
+
+	          <EditText
+	              android:id="@+id/editDescription"
+	              android:layout_width="wrap_content"
+	              android:layout_height="wrap_content"
+	              android:layout_below="@+id/btnPhoto"
+	              android:layout_toRightOf="@+id/ceDescription"
+	              android:ems="10"
+	              android:gravity="top|left"
+	              android:inputType="textMultiLine"
+	              android:lines="4"
+	              android:maxLines="6"
+	              android:textSize="10sp"
+	              android:scrollbars="vertical" />
+
+	          <Spinner
+	              android:id="@+id/spinnerCategories"
+	              android:layout_width="wrap_content"
+	              android:layout_height="wrap_content"
+	              android:layout_alignRight="@+id/btnPhoto"
+	              android:layout_below="@+id/editDescription"
+	              android:layout_marginTop="16dp"
+	              android:layout_toRightOf="@+id/ceCategory" />
+
+	          <Button
+	              android:id="@+id/btnStartTimePicker"
+	              android:layout_width="wrap_content"
+	              android:layout_height="25dp"
+	              android:layout_alignBottom="@+id/ceStartTime"
+	              android:layout_toRightOf="@+id/ceDescription" 
+	              android:text="Pick Start Time"
+	              android:background="#E5C41A"
+	              android:textColor="#ffffff"
+	              android:textSize="8dp"/>
 
 	          <TextView
 	              android:id="@+id/ceDay"
 	              android:layout_width="wrap_content"
 	              android:layout_height="wrap_content"
+	              android:layout_above="@+id/btnStartTimePicker"
 	              android:layout_alignParentLeft="true"
-	              android:layout_alignTop="@+id/datePicker1"
 	              android:text="What Day is it on?"
 	              android:textAppearance="?android:attr/textAppearanceSmall"
-	              android:textColor="@string/mainColor" />
+	              android:textColor="#E5C41A" />
 
-	          <DatePicker
-	              android:id="@+id/datePicker1"
-	              android:layout_width="25dp"
+	          <Button
+	              android:id="@+id/btnShowDate"
+	              style="?android:attr/buttonStyleSmall"
+	              android:layout_width="wrap_content"
 	              android:layout_height="25dp"
-	              android:layout_alignRight="@+id/cePhoto"
-	              android:layout_below="@+id/editText1"
-	              android:layout_marginTop="16dp" />
-
-	          <TimePicker
-	              android:id="@+id/timePicker1"
-	              android:layout_width="40dp"
-	              android:layout_height="40dp"
-	              android:layout_below="@+id/datePicker1"
-	              android:layout_toRightOf="@+id/ceStartTime" />
-
-	          <TimePicker
-	              android:id="@+id/timePicker2"
-	              android:layout_width="40dp"
-	              android:layout_height="40dp"
-	              android:layout_alignRight="@+id/textView1"
-	              android:layout_alignTop="@+id/timePicker1" />
-
-	         
+	              android:layout_alignBottom="@+id/ceDay"
+	              android:layout_toLeftOf="@+id/spinnerState"
+	              android:layout_toRightOf="@+id/ceDay"
+	              android:background="#E5C41A"
+	              android:text="Pick Date"
+	              android:textColor="#ffffff"
+	              android:textSize="10sp" />
 	          
 	</RelativeLayout>
 

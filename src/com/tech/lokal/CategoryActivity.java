@@ -4,31 +4,16 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 */
-import com.tech.lokal.R;
-
 import android.app.Activity;
-import android.os.Bundle;
-
-import android.content.ClipData.Item;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Spinner;
-import android.widget.GridView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
-import android.os.Build;
 
 public class CategoryActivity extends Activity{
 	// TO:DO implement GridView
@@ -36,12 +21,6 @@ public class CategoryActivity extends Activity{
 	//ArrayList<Item> gridArray = new ArrayList<Item>();
 	//CustomGridViewAdapter customGridAdapter;
 	
-	private Integer[] mThumbIds = {
-            
-		
-            
-            };
- 
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -85,6 +64,24 @@ public class CategoryActivity extends Activity{
 		// Setup Image Buttons
 		ImageButton imgBtnFamily = (ImageButton) findViewById(R.id.ibtnFamily);
 		ImageButton imgBtnBars = (ImageButton) findViewById(R.id.ibtnBars);
+		
+		
+		
+		
+		//Create Event button
+		Button createEvent = (Button) findViewById(R.id.btnCreateEvent);
+		
+		
+		createEvent.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// Going to the CreateEventActivity
+				Intent i = new Intent(getApplicationContext(),CreateEventActivity.class);
+				startActivity(i);
+			}
+			
+		});
 		
 		imgBtnFamily.setOnClickListener(new OnClickListener(){
 			

@@ -40,6 +40,10 @@
          <activity android:name="com.tech.lokal.EventDetailActivity"
             	   android:label="Event Details"></activity>
          
+         <!-- Entry for CreateEventActivity class (Here's where you upload an Event) -->
+         <activity android:name="com.tech.lokal.CreateEventActivity"
+             	   android:label="Create your Event!" ></activity>
+         
     </application>
     
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
