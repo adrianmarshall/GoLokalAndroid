@@ -1,20 +1,30 @@
 package com.tech.lokal;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-import com.tech.lokal.R;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.Credentials;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
 import android.annotation.TargetApi;
-import android.app.AliasActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,24 +35,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.os.Build;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.Credentials;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 
 
@@ -54,6 +46,15 @@ public class LoginActivity extends ActionBarActivity {
 		String username,password; 	// user's username and password, will be set later
 		
 		// URL/API that will be used for User Authentication
+		
+		SharedPreferences sharedPreferences;		// shared preferences will be used to store username & password information
+		
+		public static final String MyPREFERENCES = "MyPrefs" ;
+		
+		String usernameKey = "username";
+		String passwordKey = "password";
+		
+		
 		
 	@TargetApi(Build.VERSION_CODES.GINGERBREAD)
 	@Override
@@ -71,7 +72,16 @@ public class LoginActivity extends ActionBarActivity {
 		final EditText username = (EditText) findViewById(R.id.username);
 		final EditText password = (EditText) findViewById(R.id.password);
 		
+		sharedPreferences = getSharedPreferences(MyPREFERENCES,Context.MODE_PRIVATE);
 		
+		// If the user's username and password is in the shared preferences then we will log them in
+		if(sharedPreferences.contains(usernameKey) && sharedPreferences.contains(passwordKey)){
+			try{
+				Login(sharedPreferences.getString(usernameKey, ""),sharedPreferences.getString(passwordKey, ""));
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+		}
 		
 		//client = new DefaultHttpClient(); 
 		
@@ -184,7 +194,18 @@ public class LoginActivity extends ActionBarActivity {
 			 *    ---- If we want to loop through objects we can do so with a for loop and use variable 'i' in place of the index
 			 * 
 			 */
+			
+			// Save user's username and password to shared preferences 
+			Editor editor = sharedPreferences.edit();
+			
+			editor.putString(usernameKey, username);	// Adding the username to the preferences 
+			editor.putString(passwordKey, password);	// Adding the password to the preferences
+		//	editor.putString("id",users.getJSONObject(0).getString("id"));	// Adding the users id
+			
+			editor.commit();	// Commits (saves) the username and password data we just added 
+			
 			String theUser = users.getJSONObject(0).getString("username");	
+			
 			
 			// Create a Toast message saying user logged in
 			Context context = getApplicationContext();	// application context, Can use 'LoginActivity.this' in place of the context argument

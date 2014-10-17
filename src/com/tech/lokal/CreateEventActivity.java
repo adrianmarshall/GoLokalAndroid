@@ -15,6 +15,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
@@ -56,7 +57,7 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 	
 	
 	// EditText Fields 
-	EditText editTitle,editLocationName,editAddressline1,editAddressline2,editCity,editZipcode,editDescription;
+	EditText editTitle,editLocationName,editAddressline1,editAddressline2,editCity,editZipcode,editDescription,editPrice;
 	
 	// Spinners
 	Spinner spinCategories;
@@ -113,6 +114,7 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 		 editCity = (EditText) findViewById(R.id.editCity);
 		 editZipcode = (EditText) findViewById(R.id.editZipcode);
 		 editDescription = (EditText) findViewById(R.id.editDescription);
+		 editPrice = (EditText) findViewById(R.id.editPrice);
 		
 		btnPickDate.setOnClickListener(this);
 		
@@ -178,6 +180,7 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 			},mHour,mMinute,false);
 			tpd.show();
 			
+			
 		}
 		
 	if(v == btnEndTimePicker){
@@ -218,6 +221,9 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 	
 	if(v == btnSubmit){
 		
+		if(eventDay == null)
+			Toast.makeText(getApplicationContext(), "Please pick a Day for the Event", Toast.LENGTH_LONG).show();
+		
 		if(startTime == null){
 			Toast.makeText(getApplicationContext(), "Please select a Start Time", Toast.LENGTH_LONG).show();
 			
@@ -225,15 +231,34 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 		if(endTime == null)
 			Toast.makeText(getApplicationContext(), "Please select an End Time", Toast.LENGTH_LONG).show();
 		
+		if(base64Photo == null)
+			Toast.makeText(getApplicationContext(), "Please select a Photo", Toast.LENGTH_LONG).show();
+		
+		if(editTitle.getText().toString() == "")
+			Toast.makeText(getApplicationContext(), "Please enter a Title", Toast.LENGTH_LONG).show();
+		
+		if(editLocationName.getText().toString() == "")
+			Toast.makeText(getApplicationContext(), "Please enter a location name", Toast.LENGTH_LONG).show();
+		
+		if(editAddressline1.getText().toString() == "")
+			Toast.makeText(getApplicationContext(), "Please enter an address for address line 1", Toast.LENGTH_LONG).show();
+		
+		if(editCity.getText().toString() == "")
+			Toast.makeText(getApplicationContext(), "Please enter a City", Toast.LENGTH_LONG).show();
+		
+		if(editZipcode.getText().toString() == "")
+			Toast.makeText(getApplicationContext(), "Please enter a zipcode ", Toast.LENGTH_LONG).show();
 		
 		
-		if(startTime != null && endTime != null && eventDay != null){
+		if(startTime != null && endTime != null && eventDay != null && base64Photo != null
+				&& (editTitle.getText().toString() != "") && (editLocationName.getText().toString() != "")
+				&& (editAddressline1.getText().toString() != "") && (editCity.getText().toString() != "")
+				&& (editZipcode.getText().toString() == "")){
 			
 		
 		// Already got 'eventDay' , 'startTime' , and 'EndTime' variables when the user set them
 		
-		//TODO Get photo in base64
-		
+		// Gets all of the parameters from the Create event view then passes it uploadEvent which uploads the event
 		String[] params = getEventParams();
 		
 		new uploadEvent().execute(params);
@@ -294,11 +319,13 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 		@Override
 		protected void onPostExecute(String data){
 			pDialog.dismiss();
-			if(data == "200"){
+			
+			int status = Integer.getInteger(data);
+			if(status == 200){
 				Toast.makeText(getApplicationContext(), "Event Created Successfully", Toast.LENGTH_LONG).show();
 			}
 			else{
-				Toast.makeText(getApplicationContext(), "Error creatign event: "+data, Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), "Error creating event. Status code: "+status, Toast.LENGTH_LONG).show();
 			}
 		}
 	}
@@ -314,6 +341,7 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 		String zipcode = editZipcode.getText().toString();
 		String description = editDescription.getText().toString();
 		String category = spinCategories.getSelectedItem().toString();
+		String price = editPrice.getText().toString();
 		
 		// Already got 'eventDay' , 'startTime' , and 'EndTime' variables when the user set them
 		startTime = eventDay+"T"+startTime;
@@ -322,7 +350,7 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 		// Converts the photo to a base64 encoding .. Sending to server in base64 format
 		base64Photo = convert_bitmap_to_string(eventPhoto);
 		
-		String[] params = {title,locationName,addressline1,addressline2,city,state,zipcode,eventDay,startTime,endTime,description,category,base64Photo};
+		String[] params = {title,locationName,addressline1,addressline2,city,state,zipcode,eventDay,startTime,endTime,description,category,price,base64Photo};
 		
 		
 		return params;
@@ -357,14 +385,14 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 		endTime = event[9];
 		description = event[10];
 		category = event[11];
+		price = event[12];
+		
 		
 		Log.d("locationName: ", locationName);
 		// 'base64Photo' global variable in CreateEventActivity
 		
-		//TODO Add price in UI to allow user to enter it
-		price = "0";
 		
-		// TODO test out with localhost first then use   /api/mobile_create_event
+		
 		String createEventURL = "http://lokalapp.co/api/mobile_create_event";		// API URL to create an event
 		InputStream is = null;
 		String result = "";		//
@@ -376,10 +404,6 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 			DefaultHttpClient client = new DefaultHttpClient();
 			HttpPost post = new HttpPost(createEventURL);
 			
-			String json = "";
-			
-			// Build jsonObject
-			JSONObject jsonObject = new JSONObject();
 			
 			List<NameValuePair> postParams = new ArrayList<NameValuePair>();
 			
@@ -397,35 +421,7 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 			postParams.add(new BasicNameValuePair("category",category));
 			postParams.add(new BasicNameValuePair("photo",base64Photo));
 			
-			/*
-			jsonObject.accumulate("title",title);
-			jsonObject.accumulate("locationname",locationName);
-			jsonObject.accumulate("startTime",startTime);
-			jsonObject.accumulate("endTime",endTime);
-			jsonObject.accumulate("addressline1", addressline1);
-			jsonObject.accumulate("addressline2", addressline2);
-			jsonObject.accumulate("city",city);
-			jsonObject.accumulate("state",state);
-			jsonObject.accumulate("zipcode",zipcode);
-			jsonObject.accumulate("description",description);
-			jsonObject.accumulate("price", price);
-			jsonObject.accumulate("photo", base64Photo);
 			
-			// convert JSONObject to JSON string
-			json = jsonObject.toString();
-			
-			//Set json to String Entitiy 
-			StringEntity se = new StringEntity(json);
-			
-			// Set post Entity
-			post.setEntity(se);
-			
-			// Set some headers to inform the server about the type of Content we're sending over
-			post.setHeader("Accept","application/json");
-			post.setHeader("Content-type","application/json");
-			*/
-			
-			//TODO URL Encode this before sending 
 			
 			// Execute post request to the URL to register new USERS
 			

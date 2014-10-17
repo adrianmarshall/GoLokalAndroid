@@ -358,13 +358,26 @@
 	              android:textColor="#ffffff"
 	              android:textSize="10sp" />
 
-	          <ImageView
-	              android:id="@+id/imageView1"
+	          <TextView
+	              android:id="@+id/cePrice"
 	              android:layout_width="wrap_content"
 	              android:layout_height="wrap_content"
-	              android:layout_alignParentBottom="true"
-	              android:layout_toLeftOf="@+id/editCity"
-	              android:src="@drawable/abc_ab_bottom_solid_dark_holo" />
+	              android:layout_alignParentLeft="true"
+	              android:layout_below="@+id/spinnerCategories"
+	              android:text="Price: $"
+	              android:textColor="#E5C41A" />
+
+	          <EditText
+	              android:id="@+id/editPrice"
+	              android:layout_width="40dp"
+	              android:layout_height="wrap_content"
+	              android:layout_alignBaseline="@+id/cePrice"
+	              android:layout_alignBottom="@+id/btnSubmit"
+	              android:layout_toLeftOf="@+id/cePrice"
+	              android:layout_alignRight="@+id/ceCategory"
+	              android:text="0.00"
+	              
+	              android:inputType="numberDecimal" />
 	          
 	</RelativeLayout>
 
