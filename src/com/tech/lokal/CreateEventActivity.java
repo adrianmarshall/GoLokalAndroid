@@ -317,12 +317,12 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 		protected void onPostExecute(String data){
 			pDialog.dismiss();
 			
-			int status = Integer.getInteger(data);
-			if(status == 200){
+			//int status = Integer.getInteger(data);
+			if(data == "200"){
 				Toast.makeText(getApplicationContext(), "Event Created Successfully", Toast.LENGTH_LONG).show();
 			}
 			else{
-				Toast.makeText(getApplicationContext(), "Error creating event. Status code: "+status, Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), "Error creating event. Status code: "+data, Toast.LENGTH_LONG).show();
 			}
 		}
 	}
