@@ -250,10 +250,7 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 			Toast.makeText(getApplicationContext(), "Please enter a zipcode ", Toast.LENGTH_LONG).show();
 		
 		
-		if(startTime != null && endTime != null && eventDay != null && base64Photo != null
-				&& (editTitle.getText().toString() != "") && (editLocationName.getText().toString() != "")
-				&& (editAddressline1.getText().toString() != "") && (editCity.getText().toString() != "")
-				&& (editZipcode.getText().toString() == "")){
+		if(startTime != null && endTime != null && eventDay != null){
 			
 		
 		// Already got 'eventDay' , 'startTime' , and 'EndTime' variables when the user set them
@@ -350,6 +347,12 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 		// Converts the photo to a base64 encoding .. Sending to server in base64 format
 		base64Photo = convert_bitmap_to_string(eventPhoto);
 		
+		if(base64Photo != null){
+			Log.d("base64:", "Photo converted successfully");
+		}else {
+			Log.d("base64: ", "Photo failed to convert to base64");
+		}
+		
 		String[] params = {title,locationName,addressline1,addressline2,city,state,zipcode,eventDay,startTime,endTime,description,category,price,base64Photo};
 		
 		
@@ -385,7 +388,7 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 		endTime = event[9];
 		description = event[10];
 		category = event[11];
-		price = event[12];
+		price = "0"; // event[12];
 		
 		
 		Log.d("locationName: ", locationName);
@@ -393,7 +396,7 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 		
 		
 		
-		String createEventURL = "http://lokalapp.co/api/mobile_create_event";		// API URL to create an event
+		String createEventURL = "http://lokalapp.co/api/mobile_create_event/";		// API URL to create an event
 		InputStream is = null;
 		String result = "";		//
 		int status = 0;
@@ -420,6 +423,8 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 			postParams.add(new BasicNameValuePair("price",price));
 			postParams.add(new BasicNameValuePair("category",category));
 			postParams.add(new BasicNameValuePair("photo",base64Photo));
+			String name = "adrian";
+			postParams.add(new BasicNameValuePair("username",name));
 			
 			
 			

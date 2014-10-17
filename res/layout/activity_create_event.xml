@@ -373,11 +373,11 @@
 	              android:layout_height="wrap_content"
 	              android:layout_alignBaseline="@+id/cePrice"
 	              android:layout_alignBottom="@+id/btnSubmit"
-	              android:layout_toLeftOf="@+id/cePrice"
 	              android:layout_alignRight="@+id/ceCategory"
-	              android:text="0.00"
-	              
-	              android:inputType="numberDecimal" />
+	              android:layout_toLeftOf="@+id/cePrice"
+	              android:inputType="number"
+	              android:text="0"
+	              android:textSize="14sp" />
 	          
 	</RelativeLayout>
 
