@@ -231,7 +231,7 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 		if(endTime == null)
 			Toast.makeText(getApplicationContext(), "Please select an End Time", Toast.LENGTH_LONG).show();
 		
-		if(base64Photo == null)
+		if(eventPhoto == null)
 			Toast.makeText(getApplicationContext(), "Please select a Photo", Toast.LENGTH_LONG).show();
 		
 		if(editTitle.getText().toString() == "")
@@ -285,6 +285,11 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 			// Get image
 			eventPhoto = BitmapFactory.decodeFile(picturePath);
 			
+			if(eventPhoto != null){
+				Toast.makeText(getApplicationContext(), "Photo has been picked", Toast.LENGTH_SHORT).show();
+			}else {
+				Toast.makeText(getApplicationContext(), "Couldn't get the photo. Please pick the photo again", Toast.LENGTH_SHORT).show();
+			}
 			
 			
 		}
@@ -325,6 +330,7 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 				Toast.makeText(getApplicationContext(), "Error creating event. Status code: "+data, Toast.LENGTH_LONG).show();
 			}
 		}
+		//TODO Go to category acitvity
 	}
 	
 	private String[] getEventParams(){
@@ -362,6 +368,8 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 	// Converts image to Base64 encoding.. The django server side of Go Lokal takes the image in base64 format and decodes it
 	 public String convert_bitmap_to_string(Bitmap bitmap)
 	    {
+		 //TODO Re-size image before uploading or will get an outOfMemory error.
+		 // In testing..Photos that have been resized to Instagram upload with no problem.
 	        ByteArrayOutputStream full_stream = new ByteArrayOutputStream();
 	        bitmap.compress(Bitmap.CompressFormat.PNG, 100, full_stream);
 	        byte[] full_bytes = full_stream.toByteArray();

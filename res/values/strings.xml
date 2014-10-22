@@ -26,12 +26,12 @@
     <string-array name="categories">
         <item >Food</item>
         <item >Concerts</item>
-        <item >Festivales</item>
+        <item >Outdoor</item>
          <item >Nightlife</item>
-        <item >Shopping</item>
-        <item >Family</item>
+        <item >College</item>
+        <item >Philanthropy</item>
         <item>Sports</item>
-        <item> Organizational</item>
+        <item> Entertainment</item>
         <item> Other</item>
     </string-array>
 

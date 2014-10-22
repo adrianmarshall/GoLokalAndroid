@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,7 +45,7 @@ public class EventActivity extends ListActivity{
 	JSONParser jsonParser = new JSONParser();
 	
 	
-	
+	String eventCity,eventState,eventCategory;
 	ArrayList<HashMap<String,String>> eventList;
 	
 	@Override
@@ -53,7 +54,33 @@ public class EventActivity extends ListActivity{
 		setContentView(R.layout.activity_event);
 		eventList = new ArrayList<HashMap<String,String>>();	// HashMap for listview
 		
-		Log.d("onCreate", "Yep");
+		// Get City and state infromation from Category Activity 
+		  
+        Bundle extras = null;
+        eventCity= null;
+        eventState = null;		// The id of the event given from the "EventActivity" 
+        
+        // Getting The event Id from when it was clicked on in the EventActivity activity 
+        if(savedInstanceState == null){
+        	extras = getIntent().getExtras();
+        	if(extras == null){
+        		eventCity = null;
+        		eventState = null;
+        	}
+        	else{
+        		eventCity = extras.getString("city");
+        		eventState = extras.getString("state");
+        		eventCategory = extras.getString("category");
+        	}
+        	
+        } else{
+        	eventCity = (String) savedInstanceState.getSerializable("city");
+        	eventState = (String) savedInstanceState.getSerializable("state");
+        	eventCategory = (String) savedInstanceState.getSerializable("category");
+        }
+       
+        Log.d("Event City,State ", eventCity + ","+eventState);
+		
 		
 		new LoadEvents().execute();	// Execute LoadEvents function
 		
@@ -66,7 +93,7 @@ public class EventActivity extends ListActivity{
 		
 		lv.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
 
-			@Override	// TODO add an intent to go to a Detail view
+			@Override	
 			public void onItemClick(AdapterView<?> parent, View view,			// parent - arg0 , id-arg3
 					int position, long id) {
 				
@@ -117,6 +144,9 @@ public class EventActivity extends ListActivity{
 			// Building Parameters 
 			
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			params.add(new BasicNameValuePair("city","&city="+eventCity));
+			params.add(new BasicNameValuePair("state","&state="+eventState));
+			params.add(new BasicNameValuePair("category","&category="+eventCategory));
 			
 			//getting JSON string from URL
 			String json  = jsonParser.makeHttpRequest(URL_EVENT,"GET",params);

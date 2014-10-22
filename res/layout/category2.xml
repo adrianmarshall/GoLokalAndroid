@@ -12,7 +12,7 @@
         android:layout_alignParentEnd="true" />
 
     <Spinner
-        android:id="@+id/spinCity"
+        android:id="@+id/categoryCity"
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_alignParentTop="true"
@@ -23,7 +23,7 @@
         android:id="@+id/gridView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/spinCity"
+        android:layout_below="@+id/categoryCity"
         android:columnWidth="90dp"
         android:numColumns="2" >
     </GridView>

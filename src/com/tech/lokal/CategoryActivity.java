@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -21,6 +22,8 @@ public class CategoryActivity extends Activity{
 	//ArrayList<Item> gridArray = new ArrayList<Item>();
 	//CustomGridViewAdapter customGridAdapter;
 	
+	EditText editCity;
+	Spinner spinState;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -28,8 +31,8 @@ public class CategoryActivity extends Activity{
 		setContentView(R.layout.category);	// Sets the view to our XML Category view
 		
 		// Setup spinners
-		Spinner spinState = (Spinner) findViewById(R.id.spinState);		// Spinner for States list. (Manually inputed for now. Add dynamic functionality later to retrieve from server or not if it saves more data
-		Spinner spinCity = (Spinner) findViewById(R.id.spinCity);		// Spinner for City list
+		spinState = (Spinner) findViewById(R.id.spinState);		// Spinner for States list. (Manually inputed for now. Add dynamic functionality later to retrieve from server or not if it saves more data
+		editCity = (EditText) findViewById(R.id.categoryCity);		// Spinner for City list
 		
 		// ************* SETUP SPINNER FOR STATES *********************
 		int spinStatePosition = 0; 		// Spinner Selection position 
@@ -43,17 +46,7 @@ public class CategoryActivity extends Activity{
 		spinState.setAdapter(adapterState);
 		spinState.setSelection(spinStatePosition);
 		
-		// ********* SETUP SPINNER FOR CITIES ***************
-		int spinCityPosition = 0; 		// Spinner Selection position 
-		//Create an Array adapter using the string array for states and the default array adapter
-		ArrayAdapter<CharSequence> adapterCity = ArrayAdapter.createFromResource(this, R.array.cities, android.R.layout.simple_spinner_item);		//  The simple_spinner_item layout is provided by the platform and is the default layout you should use unless you'd like to define your own layout for the spinner's appearance.
-
-		// Specify the layout to use when the spinner shows the list of choices
-		adapterCity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		
-		// Apply the adapter to the spinner
-		spinCity.setAdapter(adapterCity);
-		spinCity.setSelection(spinCityPosition);
+	
 		
 		//******* Working with Grid View ******************
 		  
@@ -99,8 +92,15 @@ public class CategoryActivity extends Activity{
 			@Override
 			public void onClick(View v) {
 				
+				String city = editCity.getText().toString();
+				String state = spinState.getSelectedItem().toString();
+				
 				Toast.makeText(CategoryActivity.this, "Heading to the Bars!", Toast.LENGTH_SHORT).show();
 				Intent i = new Intent(getApplicationContext(),EventActivity.class);
+				
+				i.putExtra("city", city);
+				i.putExtra("state", state);
+				i.putExtra("category", "Bars");
 				startActivity(i);
 			}
 			

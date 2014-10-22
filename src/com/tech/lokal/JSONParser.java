@@ -115,8 +115,11 @@ public class JSONParser {
 				is = httpEntity.getContent();
 			} else if ( method == "GET"){
 				if(params != null){
-					String paramString = URLEncodedUtils.format(params, "utf-8");
-					url += "?" + paramString; 	// Alter this line if request not coming out correctly, this line may be USELESS..come back and check
+					String paramString = params.get(0).getValue();    	// Gets the 'city' value  ////// URLEncodedUtils.format(params, "utf-8");
+					paramString += params.get(1).getValue();			// Gets and appends the state parameter
+					paramString += params.get(2).getValue(); 		// Gets the Category that was picked
+					Log.d("params: ", paramString);
+					url += paramString; 	// Queries the database for all events in the category,City and state that was chosen on the last CategoryView
 				}
 				HttpGet httpGet = new HttpGet(url);
 				
