@@ -28,7 +28,7 @@ public class DateFormater {
 	}
 	
 	// Formats a given date "inputDate" to a pattern like "Wed, Oct 5, 2014"
-	public static String convertDate(String inputDate){
+	public static String convertDateTime(String inputDate){
 			
 			try {
 				 reformatedDate = myDateFormat.format(fromServer.parse(inputDate));

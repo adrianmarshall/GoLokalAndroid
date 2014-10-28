@@ -6,6 +6,7 @@ import java.util.HashMap;
 import com.squareup.picasso.Picasso;	// Picasso - for downloading the images
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,9 +76,10 @@ public class EventListAdapter extends BaseAdapter{
 		// likes_count.setText(result.get(EventActivity.TAG_LIKES));	** NOT YET IMPLEMENTED ON SERVER SIDE
 		item_id.setText(result.get(EventActivity.TAG_ID));
 		
-		//*********Converting DATE to a time format "h:mm " ****** 
-		String TAG_DATE = result.get(EventActivity.TAG_DATE);
-		TAG_DATE = DateFormater.convertDateToTime(TAG_DATE);	
+		//*********Converting DATE to a time format "DayofWeek, Month DayofMonth, YEAR" ****** 
+		String TAG_DATE = result.get(EventActivity.TAG_START_TIME);
+		Log.d("tag_date: ",TAG_DATE);
+		TAG_DATE = DateFormater.convertDateTime(TAG_DATE);	
 		
 		date.setText(TAG_DATE);
 		// ********** DATE Converted *************

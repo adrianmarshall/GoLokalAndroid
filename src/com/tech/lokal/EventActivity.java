@@ -34,7 +34,8 @@ public class EventActivity extends ListActivity{
 	//static final String TAG_LIKES = "likes";			** NOT YET IMPLEMENTED ON SERVER SIDE
 	static final String TAG_TITLE = "title";
 	static final String TAG_EVENT_IMAGE = "photo";
-	static final String TAG_DATE = "date";
+	static final String TAG_DATE = "event_date";
+	static final String TAG_START_TIME = "startTime";
 	
 	public static final String URL_EVENT = "http://lokalapp.co/api/event/?format=json";
 	
@@ -58,7 +59,8 @@ public class EventActivity extends ListActivity{
 		  
         Bundle extras = null;
         eventCity= null;
-        eventState = null;		// The id of the event given from the "EventActivity" 
+        eventState = null;	
+        eventCategory = null;
         
         // Getting The event Id from when it was clicked on in the EventActivity activity 
         if(savedInstanceState == null){
@@ -70,13 +72,19 @@ public class EventActivity extends ListActivity{
         	else{
         		eventCity = extras.getString("city");
         		eventState = extras.getString("state");
-        		eventCategory = extras.getString("category");
+        		if(extras.containsKey("category")){
+        			eventCategory = extras.getString("category");
+        		}
+        		
         	}
         	
         } else{
         	eventCity = (String) savedInstanceState.getSerializable("city");
         	eventState = (String) savedInstanceState.getSerializable("state");
-        	eventCategory = (String) savedInstanceState.getSerializable("category");
+        	if(extras.containsKey("category")){
+        		eventCategory = (String) savedInstanceState.getSerializable("category");
+        	}
+        	
         }
        
         Log.d("Event City,State ", eventCity + ","+eventState);
@@ -146,8 +154,14 @@ public class EventActivity extends ListActivity{
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("city","&city="+eventCity));
 			params.add(new BasicNameValuePair("state","&state="+eventState));
-			params.add(new BasicNameValuePair("category","&category="+eventCategory));
+			if(eventCategory == null){	
+				params.add(new BasicNameValuePair("category",""));
 			
+			
+			}else{
+				params.add(new BasicNameValuePair("category","&category="+eventCategory));
+			}
+			Log.d("category param: ",params.get(2).getValue());
 			//getting JSON string from URL
 			String json  = jsonParser.makeHttpRequest(URL_EVENT,"GET",params);
 			
@@ -173,7 +187,7 @@ public class EventActivity extends ListActivity{
 						String title = e.getString(TAG_TITLE);
 						//String likes = e.getString(TAG_LIKES);	   ** Likes NOT YET implemented on server 
 						String event_image = e.getString(TAG_EVENT_IMAGE);
-						String date = e.getString(TAG_DATE);
+						String date = e.getString(TAG_START_TIME);
 						
 						
 						// creating new HashMap
@@ -184,7 +198,7 @@ public class EventActivity extends ListActivity{
 						map.put(TAG_TITLE, title);
 						// map.put(TAG_LIKES, likes); 	** NOT YET IMPLEMENTED ON SERVER SIDE
 						map.put(TAG_EVENT_IMAGE, event_image);
-						map.put(TAG_DATE, date);
+						map.put(TAG_START_TIME, date);
 						
 						//adding HashList to ArrayList
 						

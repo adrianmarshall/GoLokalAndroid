@@ -80,9 +80,16 @@ public class CategoryActivity extends Activity{
 			
 			public void onClick(View arg0) {
  
-			   Toast.makeText(CategoryActivity.this,
-				"Family Button is clicked!", Toast.LENGTH_SHORT).show();
- 
+				String city = editCity.getText().toString();
+				String state = spinState.getSelectedItem().toString();
+				
+				Toast.makeText(CategoryActivity.this, "Showing All events!", Toast.LENGTH_SHORT).show();
+				Intent i = new Intent(getApplicationContext(),EventActivity.class);
+				
+				i.putExtra("city", city);
+				i.putExtra("state", state);
+				//i.putExtra("category", "");
+				startActivity(i);
 			}
  
 		});
@@ -100,7 +107,7 @@ public class CategoryActivity extends Activity{
 				
 				i.putExtra("city", city);
 				i.putExtra("state", state);
-				i.putExtra("category", "Bars");
+				i.putExtra("category", "Nightlife");
 				startActivity(i);
 			}
 			

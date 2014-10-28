@@ -224,7 +224,7 @@ public class EventDetailActivity extends Activity {
 	        
 	        // ********* TODO -> Format dates & times
 	        title = (TextView) findViewById(R.id.event_title);
-	        likes_count = (TextView) findViewById(R.id.likes_count);
+	      //  likes_count = (TextView) findViewById(R.id.likes_count);
 	        date = (TextView) findViewById(R.id.date);
 	        startTime = (TextView) findViewById(R.id.startTime_text);
 	        endTime = (TextView) findViewById(R.id.endTime_text);
@@ -250,8 +250,8 @@ public class EventDetailActivity extends Activity {
         	// Map all of the data from the event post JSON to the Text Views
         try{
         	 String TAG_TITLE = event.getString("title");
-        	 String TAG_LIKES = event.getString("likes");
-        	 String TAG_DATE = event.getString("date");
+        	// String TAG_LIKES = event.getString("likes");
+        	 String TAG_DATE = event.getString("event_date");
         	 String TAG_START_TIME = event.getString("startTime");
         	 String TAG_END_TIME = event.getString("endTime");
         	 String TAG_DESCRIPTION = event.getString("description");
@@ -265,7 +265,7 @@ public class EventDetailActivity extends Activity {
         	 
         	 // Format the date
         	 
-        	 TAG_DATE = DateFormater.convertDate(TAG_DATE);
+        	 TAG_DATE = DateFormater.convertDateTime(TAG_START_TIME);
         	 Log.d("DATE Format in Detail", TAG_DATE);
         	 
         	 TAG_START_TIME = DateFormater.convertDateToTime(TAG_START_TIME);
@@ -277,7 +277,7 @@ public class EventDetailActivity extends Activity {
         	 
         	 // Here we set the text Values on all of our TextViews (labels so to speak) in our User Interface layout
         	title.setText(TAG_TITLE);
-        	likes_count.setText(TAG_LIKES);
+        //	likes_count.setText(TAG_LIKES);
         	date.setText(TAG_DATE);
         	startTime.setText(TAG_START_TIME);
         	endTime.setText(TAG_END_TIME);
