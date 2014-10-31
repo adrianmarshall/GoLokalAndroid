@@ -349,7 +349,7 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 		// Already got 'eventDay' , 'startTime' , and 'EndTime' variables when the user set them
 		startTime = eventDay+"T"+startTime;
 		endTime = eventDay+"T"+endTime;
-		eventDay = eventDay+"T"+startTime;
+		//eventDay = eventDay+"T"+startTime;
 		// Converts the photo to a base64 encoding .. Sending to server in base64 format
 		base64Photo = convert_bitmap_to_string(eventPhoto);
 		
@@ -381,7 +381,7 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 	
 	private int submitEvent(String[] event){
 		// get information out of event to be more readable in this section of code
-		String title,locationName,addressline1,addressline2,eventDay,startTime,endTime,city,state,zipcode,description,
+		String title,locationName,addressline1,addressline2,startTime,endTime,city,state,zipcode,description,
 		category,price;
 		
 		// TODO add functionality on Server side to take in EventDay and save it to the Database
@@ -433,6 +433,7 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 			postParams.add(new BasicNameValuePair("photo",base64Photo));
 			String name = "adrian";
 			postParams.add(new BasicNameValuePair("username",name));
+			postParams.add(new BasicNameValuePair("event_date",eventDay));
 			
 			
 			
