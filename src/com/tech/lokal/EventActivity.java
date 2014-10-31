@@ -1,6 +1,8 @@
 package com.tech.lokal;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -10,16 +12,22 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +37,7 @@ public class EventActivity extends ListActivity{
 	
 	// private ListView lv
 	private BaseAdapter mAdapter;
+	private Spinner spinDate;
 	
 	static final String TAG_ID = "id";
 	//static final String TAG_LIKES = "likes";			** NOT YET IMPLEMENTED ON SERVER SIDE
@@ -38,6 +47,9 @@ public class EventActivity extends ListActivity{
 	static final String TAG_START_TIME = "startTime";
 	
 	public static final String URL_EVENT = "http://lokalapp.co/api/event/?format=json";
+	
+	//Parameter for the date to filter by 
+	String dateParam = "";			// Concatenate the date if user selects to use a certain date
 	
 	// Events JSON Array
 	JSONArray events = null;
@@ -62,6 +74,10 @@ public class EventActivity extends ListActivity{
         eventState = null;	
         eventCategory = null;
         
+        int spinPosition = 0;
+        
+        
+        
         // Getting The event Id from when it was clicked on in the EventActivity activity 
         if(savedInstanceState == null){
         	extras = getIntent().getExtras();
@@ -75,19 +91,93 @@ public class EventActivity extends ListActivity{
         		if(extras.containsKey("category")){
         			eventCategory = extras.getString("category");
         		}
-        		
+        		if(extras.containsKey("dateParam")){
+        				dateParam = extras.getString("dateParam");
         	}
-        	
+        		if(extras.containsKey("spinPosition")){			// Gets the previous position of the item that was last selected
+        			spinPosition = extras.getInt("spinPosition");
+        		}
+        }
         } else{
         	eventCity = (String) savedInstanceState.getSerializable("city");
         	eventState = (String) savedInstanceState.getSerializable("state");
         	if(extras.containsKey("category")){
         		eventCategory = (String) savedInstanceState.getSerializable("category");
         	}
+        	if(extras.containsKey("dateParam")){
+        		dateParam = (String) savedInstanceState.getSerializable("dateParam");
+        	}
+        	if(extras.containsKey("spinPosition")){			// Gets the previous position of the item that was last selected
+    			spinPosition =  Integer.parseInt(((String) savedInstanceState.getSerializable("spinPosition")));
+    		}
         	
         }
        
+        final String previousDateParam = dateParam;
+        
         Log.d("Event City,State ", eventCity + ","+eventState);
+        
+        spinDate = (Spinner) findViewById(R.id.spinDateChoice);
+        
+      //Create an Array adapter using the string array 'datechoices' for the date to filter by and the default array adapter
+	
+        ArrayAdapter<CharSequence> adapterDate = ArrayAdapter.createFromResource(this, R.array.datechoices, android.R.layout.simple_spinner_item);		//  The simple_spinner_item layout is provided by the platform and is the default layout you should use unless you'd like to define your own layout for the spinner's appearance.
+        
+     // Specify the layout to use when the spinner shows the list of choices
+        adapterDate.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        
+        spinDate.setAdapter(adapterDate);
+        spinDate.setSelection(spinPosition);	// Sets the selection to the first value which is "All Days"
+        
+        
+        spinDate.setOnItemSelectedListener(new OnItemSelectedListener(){
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO Auto-generated method stub
+				String datechoice = parent.getItemAtPosition(position).toString();
+				// datechoice will either be "All Days" or "Today"
+				
+				
+				if(datechoice.equals("Today")){
+					// Get todays date 
+					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+					   //get current date time with Date()
+					   Date date = new Date();
+					   String todaysDate = dateFormat.format(date);
+					   
+					   Log.d("TodaysDate: ", todaysDate);
+					   dateParam = "&event_date="+todaysDate;			// adds todays date to the dateParam
+					   Log.d("compare:",dateParam +" -prev->"+ previousDateParam);
+					   Log.d("Equal?? :", dateParam.equals(previousDateParam) +"");
+				}else if(datechoice.equals("All Days")){
+					dateParam="";
+				}
+				if(dateParam != previousDateParam)
+					Log.d("output: ", "It's saying they're not equal ");
+				
+				if(! (dateParam.equals(previousDateParam)) ){
+					
+				
+				Intent i = new Intent(getApplicationContext(),EventActivity.class);
+				i.putExtra("dateParam", dateParam);		// passing date parameter to update the view based on the date
+				
+				// must pass in parameters that we're passed in from previous "CategoryActivity"
+				i.putExtra("city", eventCity);
+				i.putExtra("state", eventState);
+				i.putExtra("spinPosition", position);
+				startActivity(i);
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+				
+			}
+        	
+        });
 		
 		
 		new LoadEvents().execute();	// Execute LoadEvents function
@@ -161,7 +251,17 @@ public class EventActivity extends ListActivity{
 			}else{
 				params.add(new BasicNameValuePair("category","&category="+eventCategory));
 			}
+			
+			// If the user selected "Today" for the date we'll send over the date to the server
+			if(dateParam == null || dateParam == ""){	
+				params.add(new BasicNameValuePair("event_date",""));
+			
+			
+			}else{
+				params.add(new BasicNameValuePair("event_date",dateParam));
+			}
 			Log.d("category param: ",params.get(2).getValue());
+			Log.d("date param: ",params.get(3).getValue());
 			//getting JSON string from URL
 			String json  = jsonParser.makeHttpRequest(URL_EVENT,"GET",params);
 			

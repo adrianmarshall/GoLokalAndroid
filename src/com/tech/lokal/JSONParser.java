@@ -114,10 +114,13 @@ public class JSONParser {
 				HttpEntity httpEntity = response.getEntity();
 				is = httpEntity.getContent();
 			} else if ( method == "GET"){
+				// Building query 
 				if(params != null){
 					String paramString = params.get(0).getValue();    	// Gets the 'city' value  ////// URLEncodedUtils.format(params, "utf-8");
 					paramString += params.get(1).getValue();			// Gets and appends the state parameter
 					paramString += params.get(2).getValue(); 		// Gets the Category that was picked
+					paramString += params.get(3).getValue();		// Gets the date that was picked
+					
 					Log.d("params: ", paramString);
 					url += paramString; 	// Queries the database for all events in the category,City and state that was chosen on the last CategoryView
 				}

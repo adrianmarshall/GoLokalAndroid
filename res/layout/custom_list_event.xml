@@ -29,7 +29,7 @@
       <LinearLayout
         android:id="@+id/llImage"
         android:layout_width="fill_parent"
-        android:layout_height="200dp"
+        android:layout_height="300dp"
         android:layout_below="@id/event_title"
         android:orientation="vertical" >
 
