@@ -7,7 +7,7 @@ import android.util.Log;
 
 public class DateFormater {
 	
-	static SimpleDateFormat fromServer = new SimpleDateFormat("yyyy-mm-dd'T'HH:mm");		// This is the Date format that the server uses (how it's formated in the MySQL Database)
+	static SimpleDateFormat fromServer = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");		// This is the Date format that the server uses (how it's formated in the MySQL Database)
 	static SimpleDateFormat myTimeFormat = new SimpleDateFormat("h:mm a");				// formats to a pattern like "12:08 PM"
 	static SimpleDateFormat myDateFormat = new SimpleDateFormat("EEE, MMM d, yyyy");	// Formats to a pattern like "Wed, Oct 5, 2014"
 	static String reformatedDate = null;

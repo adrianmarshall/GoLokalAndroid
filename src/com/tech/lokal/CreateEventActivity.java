@@ -282,8 +282,16 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 			String picturePath = cursor.getString(columnIndex);
 			cursor.close();
 			
+			// Creating BitmapFactory options to resize/downsize the image if it's too big
+			BitmapFactory.Options options = new BitmapFactory.Options();
+			options.inJustDecodeBounds = true;		//Setting the inJustDecodeBounds property to true while decoding avoids memory allocation
+			
 			// Get image
-			eventPhoto = BitmapFactory.decodeFile(picturePath);
+			eventPhoto = BitmapFactory.decodeFile(picturePath,options);
+			
+			int imageHeight = options.outHeight; 		// Gets the height of the bitmap
+			int imageWidth = options.outWidth;			// Gets the width of the bitmap
+			String imageType = options.outMimeType;		
 			
 			if(eventPhoto != null){
 				Toast.makeText(getApplicationContext(), "Photo has been picked", Toast.LENGTH_SHORT).show();

@@ -38,5 +38,6 @@
         <item> Entertainment</item>
         <item> Other</item>
     </string-array>
+    <string name="action_logout">Logout</string>
 
 </resources>

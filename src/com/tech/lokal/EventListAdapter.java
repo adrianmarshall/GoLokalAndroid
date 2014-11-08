@@ -79,7 +79,7 @@ public class EventListAdapter extends BaseAdapter{
 		//*********Converting DATE to a time format "DayofWeek, Month DayofMonth, YEAR" ****** 
 		String TAG_DATE = result.get(EventActivity.TAG_START_TIME);
 		Log.d("tag_date: ",TAG_DATE);
-		TAG_DATE = DateFormater.convertDateTime(TAG_DATE);	
+		TAG_DATE = DateFormater.convertDateToTime(TAG_DATE);	
 		
 		date.setText(TAG_DATE);
 		// ********** DATE Converted *************
