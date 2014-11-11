@@ -155,6 +155,7 @@
                android:layout_height="wrap_content"
                android:layout_alignParentLeft="true"
                android:layout_alignParentStart="true"
+               android:layout_alignRight="@+id/startTime"
                android:layout_below="@+id/addressLine2"
                android:hint="City" />
 
@@ -165,26 +166,6 @@
                android:layout_below="@+id/addressLine2"
                android:layout_toRightOf="@+id/city"
                android:text="," />
-
-           <TextView
-               android:id="@+id/state"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_alignBaseline="@+id/city_delimiter"
-               android:layout_alignBottom="@+id/city_delimiter"
-               android:layout_toEndOf="@+id/city_delimiter"
-               android:layout_toLeftOf="@+id/startTime_text"
-               android:layout_toRightOf="@+id/city_delimiter"
-               android:hint="State" />
-
-           <TextView
-               android:id="@+id/zipcode"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_alignBaseline="@+id/state"
-               android:layout_alignBottom="@+id/state"
-               android:layout_toRightOf="@+id/state"
-               android:hint="Zipcode" />
 
            <TextView
                android:id="@+id/postBy"
@@ -201,6 +182,25 @@
                android:layout_alignParentBottom="true"
                android:layout_toLeftOf="@+id/endTime_text"
                android:hint="User" />
+
+           <TextView
+               android:id="@+id/state"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_above="@+id/postBy"
+               android:layout_toEndOf="@+id/city_delimiter"
+               android:layout_toRightOf="@+id/city_delimiter"
+               android:hint="State" />
+
+           <TextView
+               android:id="@+id/zipcode"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_alignBaseline="@+id/city_delimiter"
+               android:layout_alignBottom="@+id/city_delimiter"
+               android:layout_toRightOf="@+id/state"
+               android:padding="8dp"
+               android:hint="Zipcode" />
          
          </RelativeLayout>
 	</LinearLayout>

@@ -286,6 +286,7 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 			String picturePath = cursor.getString(columnIndex);
 			cursor.close();
 			
+			// TODO:  Add a Try-catch block to catch OutOfMemory Exception when Bitmap is too big. If it is, Then resize
 			 //Creating BitmapFactory options to resize/downsize the image if it's too big
 			final BitmapFactory.Options options = new BitmapFactory.Options();
 			options.inJustDecodeBounds = true;		//Setting the inJustDecodeBounds property to true while decoding avoids memory allocation error( OutOfMemory error)
