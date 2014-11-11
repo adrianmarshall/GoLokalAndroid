@@ -270,6 +270,10 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 	protected void onActivityResult(int requestCode,int resultCode,Intent data){
 		super.onActivityResult(requestCode, resultCode, data);
 		
+		// TODO get required width and height from photo 
+		int reqWidth = 150;
+		int reqHeight = 250;
+		
 		if(requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data){
 			Uri selectedImage = data.getData();
 			String[] filePathColumn = {MediaStore.Images.Media.DATA};
@@ -282,16 +286,19 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 			String picturePath = cursor.getString(columnIndex);
 			cursor.close();
 			
-			// Creating BitmapFactory options to resize/downsize the image if it's too big
-			BitmapFactory.Options options = new BitmapFactory.Options();
-			options.inJustDecodeBounds = true;		//Setting the inJustDecodeBounds property to true while decoding avoids memory allocation
+			 //Creating BitmapFactory options to resize/downsize the image if it's too big
+			final BitmapFactory.Options options = new BitmapFactory.Options();
+			options.inJustDecodeBounds = true;		//Setting the inJustDecodeBounds property to true while decoding avoids memory allocation error( OutOfMemory error)
 			
 			// Get image
-			eventPhoto = BitmapFactory.decodeFile(picturePath,options);
+			BitmapFactory.decodeFile(picturePath,options);
 			
-			int imageHeight = options.outHeight; 		// Gets the height of the bitmap
-			int imageWidth = options.outWidth;			// Gets the width of the bitmap
-			String imageType = options.outMimeType;		
+			// Caluclate inSampleSize
+			options.inSampleSize = calculateInSampleSize(options,reqWidth,reqHeight);
+			
+			// Decode bitmap with inSampleSize set 
+			options.inJustDecodeBounds = false;
+			eventPhoto = BitmapFactory.decodeFile(picturePath,options);
 			
 			if(eventPhoto != null){
 				Toast.makeText(getApplicationContext(), "Photo has been picked", Toast.LENGTH_SHORT).show();
@@ -303,6 +310,30 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 		}
 		
 	}
+	
+	public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+    // Raw height and width of image
+    final int height = options.outHeight;
+    final int width = options.outWidth;
+    int inSampleSize = 1;
+
+    if (height > reqHeight || width > reqWidth) {
+
+        final int halfHeight = height / 2;
+        final int halfWidth = width / 2;
+
+        // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+        // height and width larger than the requested height and width.
+        while ((halfHeight / inSampleSize) > reqHeight
+                && (halfWidth / inSampleSize) > reqWidth) {
+            inSampleSize *= 2;
+        }
+    }
+
+    return inSampleSize;
+}
+	
 	
 	public class uploadEvent extends AsyncTask<String,String,String>{
 		private ProgressDialog pDialog;
