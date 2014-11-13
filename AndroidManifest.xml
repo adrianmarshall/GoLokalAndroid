@@ -44,6 +44,10 @@
          <activity android:name="com.tech.lokal.CreateEventActivity"
              	   android:label="Create your Event!" ></activity>
          
+         <!--  Entry for SettingsActivity class (Here's where the user's settings are  -->
+         <activity android:name="com.tech.lokal.SettingsActivity"
+             	   android:label="Settings"> </activity>
+         
     </application>
     
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>

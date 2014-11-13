@@ -53,6 +53,7 @@ public class LoginActivity extends ActionBarActivity {
 		
 		String usernameKey = "username";
 		String passwordKey = "password";
+		String emailKey = "email";		// TODO allow 'email' field to show up on a RESTful call to the User api so I can add/show the users 'email' in the settings
 		
 		
 		
