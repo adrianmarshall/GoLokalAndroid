@@ -424,7 +424,6 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 		String title,locationName,addressline1,addressline2,startTime,endTime,city,state,zipcode,description,
 		category,price;
 		
-		// TODO add functionality on Server side to take in EventDay and save it to the Database
 		title = event[0];
 		locationName = event[1];
 		addressline1 = event[2];

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E5C41A" >
+
+    <TextView
+        android:id="@+id/tvSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="Your Settings:"
+        android:textColor="#ffffff" />
+
+    <TextView
+        android:id="@+id/tvUsernameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/tvSettings"
+        android:layout_below="@+id/tvSettings"
+        android:layout_marginTop="42dp"
+        android:text="Username:"
+        android:textColor="#ffffff" />
+
+    <TextView
+        android:id="@+id/tvEmailLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvUsernameLabel"
+        android:layout_below="@+id/tvUsernameLabel"
+        android:layout_marginTop="26dp"
+        android:text="E-mail:"
+        android:textColor="#ffffff"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tvChangePasswordLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvEmailLabel"
+        android:layout_below="@+id/tvEmailLabel"
+        android:layout_marginTop="25dp"
+        android:text="Change Password"
+        android:textColor="#ffffff" />
+
+    <Button
+        android:id="@+id/btnChangePassword"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tvChangePasswordLabel"
+        android:layout_alignTop="@+id/tvChangePasswordLabel"
+        android:layout_marginLeft="28dp"
+        android:layout_toRightOf="@+id/tvChangePasswordLabel"
+        android:background="#ffffff"
+        android:text="Change Password" />
+
+    <TextView
+        android:id="@+id/tvCurrentPasswordLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvChangePasswordLabel"
+        android:layout_alignStart="@+id/tvChangePasswordLabel"
+        android:layout_below="@+id/tvChangePasswordLabel"
+        android:layout_marginTop="34dp"
+        android:text="Current Password: "
+        android:textColor="#ffffff" 
+        />
+
+    <EditText
+        android:id="@+id/editNewPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvNewPasswordLabel"
+        android:layout_alignBottom="@+id/tvNewPasswordLabel"
+        android:layout_toRightOf="@+id/tvCurrentPasswordLabel"
+        android:ems="10"
+        android:inputType="textPassword" 
+        >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/btnSubmitChanges"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/editNewPassword"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="42dp"
+        android:text="Submit Changes" 
+        android:background="#ffffff"
+        />
+
+    <TextView
+        android:id="@+id/tvUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvUsernameLabel"
+        android:layout_alignBottom="@+id/tvUsernameLabel"
+        android:layout_marginLeft="14dp"
+        android:layout_toRightOf="@+id/tvUsernameLabel"
+        android:hint="Username"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#ffffff" />
+
+    <TextView
+        android:id="@+id/tvEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tvChangePasswordLabel"
+        android:layout_toRightOf="@+id/tvUsernameLabel"
+        android:hint="E-mail"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#ffffff"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tvNewPasswordLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvCurrentPasswordLabel"
+        android:layout_alignStart="@+id/tvCurrentPasswordLabel"
+        android:layout_below="@+id/tvCurrentPasswordLabel"
+        android:layout_marginTop="37dp"
+        android:text="New Password: "
+        android:textColor="#ffffff" />
+
+    <EditText
+        android:id="@+id/editCurrentPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tvCurrentPasswordLabel"
+        android:layout_toRightOf="@+id/tvChangePasswordLabel"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:padding="5dp" />
+
+</RelativeLayout>
