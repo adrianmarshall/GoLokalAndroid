@@ -22,7 +22,9 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -68,6 +70,15 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 	
 	// Variables or storing current date and time
 	private int mYear,mMonth,mDay,mHour, mMinute;
+	
+	// Get Preferences to get the users username
+	SharedPreferences sharedPreferences;
+	
+	public static final String MyPREFERENCES = "MyPrefs" ;
+	public static final String usernameKey = "username";
+	
+	private String username;
+	
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -115,6 +126,13 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 		 editZipcode = (EditText) findViewById(R.id.editZipcode);
 		 editDescription = (EditText) findViewById(R.id.editDescription);
 		 editPrice = (EditText) findViewById(R.id.editPrice);
+		 
+		 // Get the users username
+		sharedPreferences = getSharedPreferences(MyPREFERENCES,Context.MODE_PRIVATE);
+		if(sharedPreferences.contains(usernameKey)){
+			username = sharedPreferences.getString(usernameKey, "");
+		}
+		 
 		
 		btnPickDate.setOnClickListener(this);
 		
@@ -470,8 +488,8 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 			postParams.add(new BasicNameValuePair("price",price));
 			postParams.add(new BasicNameValuePair("category",category));
 			postParams.add(new BasicNameValuePair("photo",base64Photo));
-			String name = "adrian";
-			postParams.add(new BasicNameValuePair("username",name));
+			// String name = "adrian";
+			postParams.add(new BasicNameValuePair("username",username));
 			postParams.add(new BasicNameValuePair("event_date",eventDay));
 			
 			
