@@ -1,17 +1,27 @@
 package com.tech.lokal;
 
+import java.io.IOException;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.Credentials;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -209,14 +219,19 @@ public class EventDetailActivity extends Activity {
 					e.printStackTrace();
 					Log.d("onPostExecute", "Can't convert eventData string to JSON object");
 				}
-				setEventData();			// Sets the Text fields in the UI to the corresponding event data
+				try {
+					setEventData();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}			// Sets the Text fields in the UI to the corresponding event data
 				checkNullAll();			// Checks all the TextViews, if null set value to blank " "
 				Log.d("onPostExecute", "end of onPost Execute");
 			}
 	    	
 	    }
 	    
-	    public void setEventData(){
+	    public void setEventData() throws ClientProtocolException, IOException{
 
 	    	
 	    	
@@ -261,6 +276,7 @@ public class EventDetailActivity extends Activity {
         	 String TAG_CITY = event.getString("city");
         	 String TAG_STATE = event.getString("state");
         	 String TAG_ZIPCODE = event.getString("zipcode");
+        	 String TAG_USER =	event.getString("user");
         	 
         	 
         	 // Format the date
@@ -273,7 +289,7 @@ public class EventDetailActivity extends Activity {
         	 if(TAG_END_TIME != "")			// Format the endTime if it wasn't left blank
         		 TAG_END_TIME = DateFormater.convertDateToTime(TAG_END_TIME);
         	 
-        	 
+        	 String theUserName = getUserName(TAG_USER);
         	 
         	 // Here we set the text Values on all of our TextViews (labels so to speak) in our User Interface layout
         	title.setText(TAG_TITLE);
@@ -288,7 +304,7 @@ public class EventDetailActivity extends Activity {
         	city.setText(TAG_CITY);
         	state.setText(TAG_STATE);
         	zipcode.setText(TAG_ZIPCODE);
-        	//user.setText((CharSequence) event.get("user"));
+        	user.setText(theUserName);
         	
         } catch(JSONException e){
         	Log.e("Mapping data to TextView"," Could not map the data to the Text Views. Possible mapping value not found");
@@ -310,6 +326,46 @@ public class EventDetailActivity extends Activity {
 		}
         
 	    } // End of setEventData
+	    
+	    // Gets all the information from the 'User' object. Returns the users username
+	    public String getUserName(String user_uri) throws JSONException, ClientProtocolException, IOException{
+	    	
+	    	// This function could be updated to get all of the users information by returning the whole JSON Object instead of just the username
+	    	String BASE_URL = "http://lokalapp.co";
+	    	String username = "";
+	    	
+	    	// Get the logged in users username and password
+	    	SharedPreferences sharedPreferences;
+	    	final String MyPREFERENCES = "MyPrefs" ;
+			sharedPreferences = getSharedPreferences(MyPREFERENCES,Context.MODE_PRIVATE);
+
+	    	String myUsername= sharedPreferences.getString("username", ""); 
+	    	String myPassword = sharedPreferences.getString("password", "");
+	    	
+	    	DefaultHttpClient client = new DefaultHttpClient();
+			final String URL = BASE_URL + user_uri;
+			HttpGet get = new HttpGet(URL);
+			Credentials cred = new UsernamePasswordCredentials(myUsername,myPassword);		// creating our user credentials to pass to the client
+			client.getCredentialsProvider().setCredentials(new AuthScope(AuthScope.ANY_HOST,AuthScope.ANY_PORT), cred);
+			
+		
+			HttpResponse response = client.execute(get);	// Executes our post request
+			int status = response.getStatusLine().getStatusCode();
+			
+			if(status == 200){
+				Log.d("EventDetail", "Status code: "+status);		// Log to show in debugger
+
+				HttpEntity entity = response.getEntity();	// Gets Entity from response, returns null if no entity
+				String data = EntityUtils.toString(entity);	// Turns entity data into a string
+			
+	    	JSONObject userObject = new JSONObject(data);
+	    	
+	    	username = userObject.getString("username");
+			}
+	    	
+	    	return username;
+	    }
+	    
 	    
 	    @SuppressWarnings("null")
 		public void checkNull(TextView view){
