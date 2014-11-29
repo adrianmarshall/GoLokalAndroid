@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >  
     
-    <ScrollView 
+    <!-- ScrollView 
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"-->
         
           <LinearLayout android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="#ffffff">
 
               <RelativeLayout 
                   android:layout_width="match_parent"
@@ -179,8 +180,10 @@
                android:id="@+id/eventUser"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:layout_alignParentBottom="true"
-               android:layout_toLeftOf="@+id/endTime_text"
+              android:layout_alignBaseline="@+id/postBy"
+               
+               android:layout_toRightOf="@+id/postBy"
+               android:layout_toEndOf="@+id/postBy"
                android:hint="User" />
 
            <TextView
@@ -205,6 +208,6 @@
          </RelativeLayout>
 	</LinearLayout>
         
-    </ScrollView>
+    <!-- /ScrollView-->
 
-</RelativeLayout>
+</ScrollView>

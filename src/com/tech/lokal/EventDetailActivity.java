@@ -69,91 +69,7 @@ public class EventDetailActivity extends Activity {
 	        
 	        new loadEvent().execute(event_id);
 	        
-	        /*
-	        // Create TextViews to hold event information
 	        
-	        TextView title,likes_count,date,startTime,endTime,description,addressLine1,addressLine2,
-	        		 city,state,zipcode,user= null;
-	        ImageView event_image = null;
-	        String photoPath = null; // url path to the photo for the event
-	        
-	        // ********* TODO -> Format dates & times
-	        title = (TextView) findViewById(R.id.event_title);
-	        likes_count = (TextView) findViewById(R.id.likes_count);
-	        date = (TextView) findViewById(R.id.date);
-	        startTime = (TextView) findViewById(R.id.startTime_text);
-	        endTime = (TextView) findViewById(R.id.endTime_text);
-	        description = (TextView) findViewById(R.id.description_text);
-	        addressLine1 = (TextView) findViewById(R.id.addressLine1);
-	        addressLine2 = (TextView) findViewById(R.id.addressLine2);
-	        city = (TextView) findViewById(R.id.city);
-	        state = (TextView) findViewById(R.id.state);
-	        zipcode = (TextView) findViewById(R.id.zipcode);
-	        user = (TextView) findViewById(R.id.eventUser);
-	        
-	        event_image = (ImageView) findViewById(R.id.img_event);
-	        
-	        new loadEvent().execute(event_id);
-	        
-	        event = getSingleEvent(event_id);
-	       
-				try {
-					photoPath = (String) event.get("photo");
-				} catch (JSONException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-		
-	       Log.d("AFTER EVENT", "after getting json.before getting strings");
-	        	// Map all of the data from the event post JSON to the Text Views
-	        try{
-	        	 String TAG_TITLE = event.getString("title");
-	        	 String TAG_LIKES = event.getString("likes");
-	        	 String TAG_DATE = event.getString("date");
-	        	 String TAG_START_TIME = event.getString("startTime");
-	        	 String TAG_END_TIME = event.getString("endTime");
-	        	 String TAG_DESCRIPTION = event.getString("description");
-	        	 String TAG_ADDRESSLINE1 = event.getString("addressline1");
-	        	 String TAG_ADDRESSLINE2 = event.getString("addressline2");
-	        	 String TAG_CITY = event.getString("city");
-	        	 String TAG_STATE = event.getString("state");
-	        	 String TAG_ZIPCODE = event.getString("zipcode");
-	        	 
-	        	 
-	        
-	        	title.setText(TAG_TITLE);
-	        	likes_count.setText(TAG_LIKES);
-	        	date.setText(TAG_DATE);
-	        	startTime.setText(TAG_START_TIME);
-	        	endTime.setText(TAG_END_TIME);
-	        	description.setText(TAG_DESCRIPTION);
-	        	addressLine1.setText(TAG_ADDRESSLINE1);
-	        	addressLine2.setText(TAG_ADDRESSLINE2);
-	        	city.setText(TAG_CITY);
-	        	state.setText(TAG_STATE);
-	        	zipcode.setText(TAG_ZIPCODE);
-	        	//user.setText((CharSequence) event.get("user"));
-	        	
-	        } catch(JSONException e){
-	        	Log.e("Mapping data to TextView"," Could not map the data to the Text Views. Possible mapping value not found");
-	        }
-	        
-	      //Picasso image loader library starts here
-			try{
-				
-			
-			Picasso.with(mContext).load(SITE_URL + photoPath) // Photo URL
-			.placeholder(R.drawable.logo)		// This image will be displayed while photo URL is loading
-			.error(R.drawable.ic_launcher)			// If error shows up during downloading
-			.fit().centerCrop()	// settings , fit() Attempt to resize the image to fit exactly into the target ImageView's bounds.
-								//centerCrop Crops an image inside of the bounds specified by resize(int, int) rather than distorting the aspect ratio.
-			.into(event_image);		// We put it into our layout component (image view)
-			} catch (Exception e){
-				e.printStackTrace();
-				Log.e("Picasso", "Error Loading image with picasso");
-			}
-	        
-	        */
 	    }
 
 	    // This will return our JSON object
@@ -327,6 +243,7 @@ public class EventDetailActivity extends Activity {
         
 	    } // End of setEventData
 	    
+	    //TODO This is causing a NetworkonMainThreadException . Fix it. Add this to an AsyncTask
 	    // Gets all the information from the 'User' object. Returns the users username
 	    public String getUserName(String user_uri) throws JSONException, ClientProtocolException, IOException{
 	    	
@@ -361,6 +278,7 @@ public class EventDetailActivity extends Activity {
 	    	JSONObject userObject = new JSONObject(data);
 	    	
 	    	username = userObject.getString("username");
+	    	
 			}
 	    	
 	    	return username;
@@ -372,7 +290,7 @@ public class EventDetailActivity extends Activity {
 	    	
 	    	// Checks to see if a text view is null, if it is we set it to blank " " so that 
 	    	// it won't show up as "null" in the application
-	    	if(view.getText() == "null")
+	    	if(view.getText() == "null" || view.getText().length() == 0)
 	    		view.setText(" ");
 	    }
 
@@ -395,6 +313,6 @@ public class EventDetailActivity extends Activity {
 	    	checkNull(city);
 	    	checkNull(state);
 	    	checkNull(zipcode);
-	    	checkNull(user);
+	    	//checkNull(user);
 	    }
 }// End of EventDetail Class
