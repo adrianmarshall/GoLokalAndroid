@@ -42,6 +42,7 @@ public class EventDetailActivity extends Activity {
     
     TextView title,likes_count,date,startTime,endTime,description,locationName,addressLine1,addressLine2,
     		 city,state,zipcode,user= null;
+    String theUserName = "";
     ImageView event_image = null;
     
 	 @Override
@@ -121,12 +122,44 @@ public class EventDetailActivity extends Activity {
 				
 				event = getSingleEvent(event_id);
 				
+				// Testing getUser HTTP request in Background to avoid NetworkOnMainThread Error
+			//	try {
+				//	event = new JSONObject(eventData);
+				//	Log.d("Event Data", eventData);
+				//} catch (JSONException e) {
+					// TODO Auto-generated catch block
+				//	e.printStackTrace();
+				//	Log.d("onPostExecute", "Can't convert eventData string to JSON object");
+			//	}
+				String TAG_USER = "";
+				try {
+					TAG_USER = event.getString("user");
+				} catch (JSONException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+	        	  try {
+					theUserName = getUserName(TAG_USER);
+				} catch (ClientProtocolException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (JSONException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}		// HTTP request to get the Users username
+
+				
+				
 				return event.toString();
 			}
 			
 			protected void onPostExecute(String eventData){
 				
 				pDialog.dismiss();		// Dismisses the Dialog
+				
 				try {
 					event = new JSONObject(eventData);
 					Log.d("Event Data", eventData);
@@ -143,6 +176,7 @@ public class EventDetailActivity extends Activity {
 				}			// Sets the Text fields in the UI to the corresponding event data
 				checkNullAll();			// Checks all the TextViews, if null set value to blank " "
 				Log.d("onPostExecute", "end of onPost Execute");
+				
 			}
 	    	
 	    }
@@ -205,7 +239,7 @@ public class EventDetailActivity extends Activity {
         	 if(TAG_END_TIME != "")			// Format the endTime if it wasn't left blank
         		 TAG_END_TIME = DateFormater.convertDateToTime(TAG_END_TIME);
         	 
-        	 String theUserName = getUserName(TAG_USER);
+        	 // theUserName = getUserName(TAG_USER);		// HTTP request to get the Users username
         	 
         	 // Here we set the text Values on all of our TextViews (labels so to speak) in our User Interface layout
         	title.setText(TAG_TITLE);
