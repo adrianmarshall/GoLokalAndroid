@@ -122,15 +122,7 @@ public class EventDetailActivity extends Activity {
 				
 				event = getSingleEvent(event_id);
 				
-				// Testing getUser HTTP request in Background to avoid NetworkOnMainThread Error
-			//	try {
-				//	event = new JSONObject(eventData);
-				//	Log.d("Event Data", eventData);
-				//} catch (JSONException e) {
-					// TODO Auto-generated catch block
-				//	e.printStackTrace();
-				//	Log.d("onPostExecute", "Can't convert eventData string to JSON object");
-			//	}
+		
 				String TAG_USER = "";
 				try {
 					TAG_USER = event.getString("user");
@@ -139,7 +131,7 @@ public class EventDetailActivity extends Activity {
 					e1.printStackTrace();
 				}
 	        	  try {
-					theUserName = getUserName(TAG_USER);
+					theUserName = getUserName(TAG_USER);		// HTTP request to get the users username. Can be modified to get all user information & put into a JSON object
 				} catch (ClientProtocolException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -231,7 +223,7 @@ public class EventDetailActivity extends Activity {
         	 
         	 // Format the date
         	 
-        	 TAG_DATE = DateFormater.convertDateTime(TAG_START_TIME);
+        	 TAG_DATE = DateFormater.convertDateToDay(TAG_START_TIME);
         	 Log.d("DATE Format in Detail", TAG_DATE);
         	 
         	 TAG_START_TIME = DateFormater.convertDateToTime(TAG_START_TIME);
@@ -277,7 +269,6 @@ public class EventDetailActivity extends Activity {
         
 	    } // End of setEventData
 	    
-	    //TODO This is causing a NetworkonMainThreadException . Fix it. Add this to an AsyncTask
 	    // Gets all the information from the 'User' object. Returns the users username
 	    public String getUserName(String user_uri) throws JSONException, ClientProtocolException, IOException{
 	    	

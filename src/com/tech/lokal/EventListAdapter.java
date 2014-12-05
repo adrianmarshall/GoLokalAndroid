@@ -59,7 +59,9 @@ public class EventListAdapter extends BaseAdapter{
 		ImageView event_image;
 	//	TextView likes_count;		** NOT YET IMPLEMENTED ON SERVER SIDE
 		TextView item_id;
-		TextView date;
+		TextView event_time;
+		TextView event_day; 		
+		TextView event_description;
 		
 		inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View view = inflater.inflate(R.layout.custom_list_event, parent,false);
@@ -69,19 +71,26 @@ public class EventListAdapter extends BaseAdapter{
 		event_title = (TextView) view.findViewById(R.id.event_title);
 		event_image = (ImageView) view.findViewById(R.id.img_event);
 		// likes_count = (TextView) view.findViewById(R.id.likes_count);		** NOT YET IMPLEMENTED ON SERVER SIDE
-		item_id = 	(TextView) view.findViewById(R.id.event_id);
-		date = (TextView) view.findViewById(R.id.event_date);
+		item_id = 	(TextView) view.findViewById(R.id.event_id);		// The id is needed to identify the which object is which but not shown in the UI
+		event_time = (TextView) view.findViewById(R.id.event_time);
+		event_day = (TextView) view.findViewById(R.id.event_day);
+		event_description = (TextView) view.findViewById(R.id.event_description);
+		
 		
 		event_title.setText(result.get(EventActivity.TAG_TITLE));
 		// likes_count.setText(result.get(EventActivity.TAG_LIKES));	** NOT YET IMPLEMENTED ON SERVER SIDE
 		item_id.setText(result.get(EventActivity.TAG_ID));
+		event_description.setText(result.get(EventActivity.TAG_DESCRIPTION));
 		
+		Log.d("description: ", " " +event_description.getText().toString());
 		//*********Converting DATE to a time format "DayofWeek, Month DayofMonth, YEAR" ****** 
-		String TAG_DATE = result.get(EventActivity.TAG_START_TIME);
-		Log.d("tag_date: ",TAG_DATE);
-		TAG_DATE = DateFormater.convertDateToTime(TAG_DATE);	
+		String TAG_TIME = result.get(EventActivity.TAG_START_TIME);
+		Log.d("tag_date: ",TAG_TIME);
+		String TAG_DAY = DateFormater.convertDateToDay(TAG_TIME);
+		TAG_TIME = DateFormater.convertDateToTime(TAG_TIME);	
 		
-		date.setText(TAG_DATE);
+		event_time.setText(TAG_TIME);	// set the time of the event
+		event_day.setText(TAG_DAY);		// Set the day of the event
 		// ********** DATE Converted *************
 		//Picasso image loader library starts here
 		

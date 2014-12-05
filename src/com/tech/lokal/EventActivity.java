@@ -45,6 +45,7 @@ public class EventActivity extends ListActivity{
 	static final String TAG_EVENT_IMAGE = "photo";
 	static final String TAG_DATE = "event_date";
 	static final String TAG_START_TIME = "startTime";
+	static final String TAG_DESCRIPTION = "description";
 	
 	public static final String URL_EVENT = "http://lokalapp.co/api/event/?format=json";
 	
@@ -185,9 +186,12 @@ public class EventActivity extends ListActivity{
 		//get listview 
 		ListView lv = getListView();
 		
-		// come back and change this divider later to a more reasonable and appealing color/image
+		// TODO come back and change this divider later to a more reasonable and appealing color/image
 		lv.setDivider(this.getResources().getDrawable(R.drawable.repeat_bg));		// Setting a divider between the list elements
-		lv.setDividerHeight(3);
+		lv.setDividerHeight(15);
+		
+		//lv.setDividerHeight(10);
+		//lv.setDivider(getResources().getDrawable(android.R.color.holo_orange_dark));
 		
 		lv.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
 
@@ -288,6 +292,7 @@ public class EventActivity extends ListActivity{
 						//String likes = e.getString(TAG_LIKES);	   ** Likes NOT YET implemented on server 
 						String event_image = e.getString(TAG_EVENT_IMAGE);
 						String date = e.getString(TAG_START_TIME);
+						String description = e.getString(TAG_DESCRIPTION);
 						
 						
 						// creating new HashMap
@@ -299,6 +304,7 @@ public class EventActivity extends ListActivity{
 						// map.put(TAG_LIKES, likes); 	** NOT YET IMPLEMENTED ON SERVER SIDE
 						map.put(TAG_EVENT_IMAGE, event_image);
 						map.put(TAG_START_TIME, date);
+						map.put(TAG_DESCRIPTION, description);
 						
 						//adding HashList to ArrayList
 						
