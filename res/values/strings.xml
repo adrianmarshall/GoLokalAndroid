@@ -39,5 +39,6 @@
         <item> Other</item>
     </string-array>
     <string name="action_logout">Logout</string>
+    <string name="action_myevents">My Events</string>
 
 </resources>

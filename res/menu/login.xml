@@ -12,5 +12,10 @@
         android:id="@+id/action_logout" 
         android:title="@string/action_logout"
         android:showAsAction="never"></item>
+    
+        <item 
+        android:id="@+id/action_myevents" 
+        android:title="@string/action_myevents"
+        android:showAsAction="never"></item>
 
 </menu>

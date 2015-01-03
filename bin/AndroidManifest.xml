@@ -48,6 +48,10 @@
          <activity android:name="com.tech.lokal.SettingsActivity"
              	   android:label="Settings"> </activity>
          
+           <!--  Entry for MyEventsActivity class (Here's wherethe user can view their uploaded events -->
+         <activity android:name="com.tech.lokal.MyEventsActivity"
+             	   android:label="My Events"> </activity>
+         
     </application>
     
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>

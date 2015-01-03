@@ -14,7 +14,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class EventListAdapter extends BaseAdapter{
+public class MyEventsListAdapter extends BaseAdapter{
 
 	private Context mContext;
 	private final ArrayList<HashMap <String,String>> urls;		// Array list of HashMap Strings( The Events attributes)
@@ -25,7 +25,7 @@ public class EventListAdapter extends BaseAdapter{
 	LayoutInflater inflater;
 	
 	//Class Constructor 
-	public EventListAdapter(Context context, ArrayList<HashMap<String,String>> items){
+	public MyEventsListAdapter(Context context, ArrayList<HashMap<String,String>> items){
 		mContext = context;
 		urls = items;
 	}
@@ -54,6 +54,7 @@ public class EventListAdapter extends BaseAdapter{
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
+		Log.d("getView: "," in getView() ");
 		
 		TextView event_title;
 		ImageView event_image;
@@ -64,44 +65,35 @@ public class EventListAdapter extends BaseAdapter{
 		TextView event_description;
 		
 		inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View view = inflater.inflate(R.layout.custom_list_event, parent,false);
+		View view = inflater.inflate(R.layout.custom_list_myevent, parent,false);
 		
 		result = urls.get(position);
 		
 		// connect variables to their corresponding UI counterparts 
 		
-		event_title = (TextView) view.findViewById(R.id.event_title);
-		event_image = (ImageView) view.findViewById(R.id.img_event);
+		event_title = (TextView) view.findViewById(R.id.myevent_title);
+		//event_image = (ImageView) view.findViewById(R.id.img_event);
 		// likes_count = (TextView) view.findViewById(R.id.likes_count);		** NOT YET IMPLEMENTED ON SERVER SIDE
-		item_id = 	(TextView) view.findViewById(R.id.event_id);		// The id is needed to identify the which object is which but not shown in the UI
-		event_time = (TextView) view.findViewById(R.id.event_time);
-		event_day = (TextView) view.findViewById(R.id.event_day);
-		event_description = (TextView) view.findViewById(R.id.event_description);
+		item_id = 	(TextView) view.findViewById(R.id.myevent_id);		// The id is needed to identify the which object is which but not shown in the UI
+		//event_time = (TextView) view.findViewById(R.id.event_time);
+		event_day = (TextView) view.findViewById(R.id.myevent_date);
+		//event_description = (TextView) view.findViewById(R.id.event_description);
 		
 		
 		event_title.setText(result.get(EventActivity.TAG_TITLE));
 		// likes_count.setText(result.get(EventActivity.TAG_LIKES));	** NOT YET IMPLEMENTED ON SERVER SIDE
 		item_id.setText(result.get(EventActivity.TAG_ID));
-		event_description.setText(result.get(EventActivity.TAG_DESCRIPTION));
+		//event_description.setText(result.get(EventActivity.TAG_DESCRIPTION));
 		
-		Log.d("description: ", " " +event_description.getText().toString());
+		//Log.d("description: ", " " +event_description.getText().toString());
 		//*********Converting DATE to a time format "DayofWeek, Month DayofMonth, YEAR" ****** 
-		String TAG_TIME = result.get(EventActivity.TAG_START_TIME);
-		Log.d("tag_date: ",TAG_TIME);
-		String TAG_DAY = DateFormater.convertDateToDay(TAG_TIME);
-		TAG_TIME = DateFormater.convertDateToTime(TAG_TIME);	
-		
-		event_time.setText(TAG_TIME);	// set the time of the event
-		event_day.setText(TAG_DAY);		// Set the day of the event
+		String TAG_DATE = result.get(EventActivity.TAG_START_TIME);
+		Log.d("tag_date: ",TAG_DATE);
+		TAG_DATE = DateFormater.convertDateToDay(TAG_DATE);
+		Log.d("tag_date: ","After conversion:"+ TAG_DATE);
+		event_day.setText(TAG_DATE);		// Set the day of the event
 		// ********** DATE Converted *************
-		//Picasso image loader library starts here
-		
-		Picasso.with(mContext).load(EVENT_IMAGE_URL + result.get(EventActivity.TAG_EVENT_IMAGE)) // Photo URL
-		.placeholder(R.drawable.logo)		// This image will be displayed while photo URL is loading
-		.error(R.drawable.ic_launcher)			// If error shows up during downloading
-		.fit().centerCrop()	// settings , fit() Attempt to resize the image to fit exactly into the target ImageView's bounds.
-							//centerCrop Crops an image inside of the bounds specified by resize(int, int) rather than distorting the aspect ratio.
-		.into(event_image);		// We put it into our layout component (image view)
+	
 		return view;
 	}
 

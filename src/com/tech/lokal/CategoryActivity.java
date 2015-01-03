@@ -139,6 +139,11 @@ public class CategoryActivity extends Activity{
 			//return true;
 		}
 		
+		if(id == R.id.action_myevents){
+			Intent i = new Intent(getApplicationContext(),MyEventsActivity.class);
+			startActivity(i);
+		}
+		
 		if(id == R.id.action_logout){
 			// Clears all of the users data first. Clear username/password
 			SharedPreferences preferences = getSharedPreferences(LoginActivity.MyPREFERENCES, 0);
