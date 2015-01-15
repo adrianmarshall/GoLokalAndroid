@@ -51,6 +51,9 @@
            <!--  Entry for MyEventsActivity class (Here's wherethe user can view their uploaded events -->
          <activity android:name="com.tech.lokal.MyEventsActivity"
              	   android:label="My Events"> </activity>
+          <!--  Entry for MyEventsActivity class (Here's where the user can edit their events -->
+         <activity android:name="com.tech.lokal.EditEventActivity"
+             	   android:label="Edit your event"> </activity>
          
     </application>
     

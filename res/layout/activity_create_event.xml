@@ -32,7 +32,7 @@
 	        />
 	    
 	     <TextView
-	        android:id="@+id/ceTitle"
+	        android:id="@+id/editETitle"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentLeft="true"
@@ -44,12 +44,12 @@
 	        />
 	     
 	     <TextView
-	        android:id="@+id/ceLocationName"
+	        android:id="@+id/editELocationName"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentLeft="true"
 	        android:layout_alignParentStart="true"
-	        android:layout_below="@+id/ceTitle"
+	        android:layout_below="@+id/editETitle"
 	        android:layout_marginTop="10dp"
 	        android:text="Location Name: " 
 	        android:textColor="#E5C41A"
@@ -57,57 +57,57 @@
 	    
 	     
 	     <TextView
-	        android:id="@+id/ceAddressLine1"
+	        android:id="@+id/editEAddressLine1"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentLeft="true"
 	        android:layout_alignParentStart="true"
-	        android:layout_below="@+id/ceLocationName"
+	        android:layout_below="@+id/editELocationName"
 	        android:layout_marginTop="10dp"
 	        android:text="Address Line 1: " 
 	        android:textColor="#E5C41A"
 	        />
 	     
 	     <TextView
-	        android:id="@+id/ceAddressLine2"
+	        android:id="@+id/editEAddressLine2"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentLeft="true"
 	        android:layout_alignParentStart="true"
-	        android:layout_below="@+id/ceAddressLine1"
+	        android:layout_below="@+id/editEAddressLine1"
 	        android:layout_marginTop="10dp"
 	        android:text="Address Line 2: " 
 	        android:textColor="#E5C41A"
 	        />
 	     
 	       <TextView
-	        android:id="@+id/ceCity"
+	        android:id="@+id/editECity"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentLeft="true"
 	        android:layout_alignParentStart="true"
-	        android:layout_below="@+id/ceAddressLine2"
+	        android:layout_below="@+id/editEAddressLine2"
 	        android:layout_marginTop="10dp"
 	        android:text="City: " 
 	        android:textColor="#E5C41A"
 	        />
 
 	       <TextView
-	           android:id="@+id/ceState"
+	           android:id="@+id/editEState"
 	           android:layout_width="wrap_content"
 	           android:layout_height="wrap_content"
-	           android:layout_alignBaseline="@+id/ceCity"
-	           android:layout_alignBottom="@+id/ceCity"
+	           android:layout_alignBaseline="@+id/editECity"
+	           android:layout_alignBottom="@+id/editECity"
 	           android:layout_centerHorizontal="true"
 	           android:text="State: "
 	           android:textColor="#E5C41A" />
 
 	          <TextView
-	              android:id="@+id/cePhoto"
+	              android:id="@+id/editEPhoto"
 	              android:layout_width="wrap_content"
 	              android:layout_height="wrap_content"
 	              android:layout_alignParentLeft="true"
-	              android:layout_below="@+id/ceStartTime"
+	              android:layout_below="@+id/editEStartTime"
 	              android:layout_marginTop="24dp"
 	              android:text="Pick Event Photo to use: "
 	              android:textAppearance="?android:attr/textAppearanceSmall"
@@ -118,41 +118,41 @@
 	              android:layout_width="wrap_content"
 	              android:layout_height="wrap_content"
 	              android:layout_alignParentLeft="true"
-	              android:layout_below="@+id/cePhoto"
+	              android:layout_below="@+id/editEPhoto"
 	              android:layout_marginTop="10dp"
 	              android:text="Description: "
 	              android:textColor="#E5C41A"
 	              android:textAppearance="?android:attr/textAppearanceSmall" />
 
 	          <TextView
-	              android:id="@+id/ceEndTime"
+	              android:id="@+id/editEEndTime"
 	              android:layout_width="wrap_content"
 	              android:layout_height="wrap_content"
-	              android:layout_alignBottom="@+id/btnEndTime"
-	              android:layout_toRightOf="@+id/cePhoto"
+	              android:layout_alignBottom="@+id/editEbtnEndTime"
+	              android:layout_toRightOf="@+id/editEPhoto"
 	              android:text="End Time:"
 	              android:textAppearance="?android:attr/textAppearanceSmall"
 	              android:textColor="#E5C41A" />
 
 	          <EditText
-	              android:id="@+id/editLocationName"
+	              android:id="@+id/tfEditLocationName"
 	              android:layout_width="wrap_content"
 	              android:layout_height="wrap_content"
-	              android:layout_alignBottom="@+id/ceLocationName"
-	              android:layout_below="@+id/editTitle"
-	              android:layout_toRightOf="@+id/ceLocationName"
+	              android:layout_alignBottom="@+id/editELocationName"
+	              android:layout_below="@+id/tfEditTitle"
+	              android:layout_toRightOf="@+id/editELocationName"
 	              android:inputType="text"
 	        	  android:singleLine="true" 
 	        	  android:textSize="12sp"
 	              android:hint="What's the name of the place?"/>
 
 	          <EditText
-	              android:id="@+id/editTitle"
+	              android:id="@+id/tfEditTitle"
 	              android:layout_width="wrap_content"
 	              android:layout_height="wrap_content"
-	              android:layout_above="@+id/ceLocationName"
+	              android:layout_above="@+id/editELocationName"
 	              android:layout_alignLeft="@+id/textView1"
-	              android:layout_alignRight="@+id/editLocationName"
+	              android:layout_alignRight="@+id/tfEditLocationName"
 	              android:layout_below="@+id/textView2"
 	              android:ems="10"
 	              android:hint="Enter a Title for your event"
@@ -164,11 +164,11 @@
 	          </EditText>
 
 	          <EditText
-	              android:id="@+id/editAddresssLine1"
+	              android:id="@+id/tfEditAddresssLine1"
 	              android:layout_width="wrap_content"
 	              android:layout_height="wrap_content"
-	              android:layout_above="@+id/ceAddressLine2"
-	              android:layout_toRightOf="@+id/ceAddressLine1"
+	              android:layout_above="@+id/editEAddressLine2"
+	              android:layout_toRightOf="@+id/editEAddressLine1"
 	              android:ems="10"
 	              android:hint="Address Line 1"
 	              android:inputType="text"
@@ -176,11 +176,11 @@
 	              android:textSize="12sp" />
 
 	          <EditText
-	              android:id="@+id/editAddressLine2"
+	              android:id="@+id/tfEditAddressLine2"
 	              android:layout_width="wrap_content"
 	              android:layout_height="wrap_content"
-	              android:layout_below="@+id/ceAddressLine1"
-	              android:layout_toRightOf="@+id/ceAddressLine2"
+	              android:layout_below="@+id/editEAddressLine1"
+	              android:layout_toRightOf="@+id/editEAddressLine2"
 	              android:ems="10"
 	              android:hint="Address Line 2"
 	              android:inputType="text"
@@ -188,13 +188,13 @@
 	              android:textSize="12sp" />
 
 	          <EditText
-	              android:id="@+id/editCity"
+	              android:id="@+id/tfEditCity"
 	              android:layout_width="wrap_content"
 	              android:layout_height="wrap_content"
-	              android:layout_alignBaseline="@+id/ceState"
-	              android:layout_alignBottom="@+id/ceState"
-	              android:layout_toLeftOf="@+id/ceState"
-	              android:layout_toRightOf="@+id/ceTitle"
+	              android:layout_alignBaseline="@+id/editEState"
+	              android:layout_alignBottom="@+id/editEState"
+	              android:layout_toLeftOf="@+id/editEState"
+	              android:layout_toRightOf="@+id/editETitle"
 	              android:ems="10"
 	              android:hint="City"
 	              android:inputType="text"
@@ -202,42 +202,42 @@
 	              android:textSize="12sp" />
 
 	          <Spinner
-	              android:id="@+id/spinnerState"
+	              android:id="@+id/editEspinnerState"
 	              android:layout_width="wrap_content"
 	              android:layout_height="wrap_content"
-	              android:layout_above="@+id/ceStartTime"
-	              android:layout_below="@+id/ceAddressLine2"
-	              android:layout_toRightOf="@+id/ceState" />
+	              android:layout_above="@+id/editEStartTime"
+	              android:layout_below="@+id/editEAddressLine2"
+	              android:layout_toRightOf="@+id/editEState" />
 
 	          <TextView
-	              android:id="@+id/ceZipcode"
+	              android:id="@+id/editEZipcode"
 	              android:layout_width="wrap_content"
 	              android:layout_height="wrap_content"
 	              android:layout_alignParentLeft="true"
-	              android:layout_below="@+id/editCity"
+	              android:layout_below="@+id/tfEditCity"
 	              android:layout_marginTop="10dp"
 	              android:text="Zipcode"
 	              android:textAppearance="?android:attr/textAppearanceSmall"
 	              android:textColor="#E5C41A" />
 
 	          <EditText
-	              android:id="@+id/editZipcode"
+	              android:id="@+id/tfEditZipcode"
 	              android:layout_width="wrap_content"
 	              android:layout_height="wrap_content"
-	              android:layout_alignRight="@+id/editCity"
-	              android:layout_below="@+id/ceState"
-	              android:layout_toRightOf="@+id/ceZipcode"
+	              android:layout_alignRight="@+id/tfEditCity"
+	              android:layout_below="@+id/editEState"
+	              android:layout_toRightOf="@+id/editEZipcode"
 	              
 	              android:inputType="number"
 	              android:hint="30458"
 	              android:textSize="12sp" />
 
 	          <TextView
-	              android:id="@+id/ceStartTime"
+	              android:id="@+id/editEStartTime"
 	              android:layout_width="wrap_content"
 	              android:layout_height="wrap_content"
 	              android:layout_alignParentLeft="true"
-	              android:layout_below="@+id/editZipcode"
+	              android:layout_below="@+id/tfEditZipcode"
 	              android:layout_marginTop="62dp"
 	              android:text="Start Time: "
 	              android:textAppearance="?android:attr/textAppearanceSmall"
@@ -247,65 +247,65 @@
 	              android:id="@+id/datePicker1"
 	              android:layout_width="wrap_content"
 	              android:layout_height="wrap_content"
-	              android:layout_alignRight="@+id/cePhoto"
-	              android:layout_below="@+id/editZipcode"
+	              android:layout_alignRight="@+id/editEPhoto"
+	              android:layout_below="@+id/tfEditZipcode"
 	              android:layout_marginTop="16dp"
 	              android:text="Pick Date"
 	              android:visibility="gone"
 	               />
 
 	          <Button
-	              android:id="@+id/btnEndTime"
+	              android:id="@+id/editEbtnEndTime"
 	              android:layout_width="wrap_content"
 	              android:layout_height="25dp"
 	              android:layout_alignRight="@+id/textView1"
-	              android:layout_alignTop="@+id/btnStartTimePicker"
+	              android:layout_alignTop="@+id/editEbtnStartTimePicker"
 	              android:text="Pick End Time"
 	              android:textSize="8dp"
 	              android:background="#E5C41A"
 	              android:textColor="#ffffff" />
 
 	          <Button
-	              android:id="@+id/btnSubmit"
+	              android:id="@+id/editEBtnUpdateEvent"
 	              style="?android:attr/buttonStyleSmall"
 	              android:layout_width="wrap_content"
-	              android:layout_below="@+id/ceCategory"
+	              android:layout_below="@+id/editECategory"
 	              android:layout_height="wrap_content"
 	              android:layout_alignParentBottom="true"
-	              android:layout_alignRight="@+id/editLocationName"
+	              android:layout_alignRight="@+id/tfEditLocationName"
 	              android:text="Submit Event"
 	              android:textColor="#ffffff"
 				  android:background="#E5C41A"/>
 
 	          <Button
-	              android:id="@+id/btnPhoto"
+	              android:id="@+id/editEbtnPhoto"
 	              style="?android:attr/buttonStyleSmall"
 	              android:layout_width="wrap_content"
 	              android:layout_height="25dp"
-	              android:layout_alignBaseline="@+id/cePhoto"
-	              android:layout_alignBottom="@+id/cePhoto"
-	              android:layout_alignLeft="@+id/ceEndTime"
+	              android:layout_alignBaseline="@+id/editEPhoto"
+	              android:layout_alignBottom="@+id/editEPhoto"
+	              android:layout_alignLeft="@+id/editEEndTime"
 	              android:text="Photo..."
 	              android:textSize="8sp" 
 	              android:background="#E5C41A"
 	              android:textColor="#FFFFFF"/>
 
 	          <TextView
-	              android:id="@+id/ceCategory"
+	              android:id="@+id/editECategory"
 	              android:layout_width="wrap_content"
 	              android:layout_height="wrap_content"
 	              android:layout_alignParentLeft="true"
-	              android:layout_below="@+id/editDescription"
+	              android:layout_below="@+id/tfEditDescription"
 	              android:layout_marginTop="30dp"
 	              android:text="Pick Category: "
 	              android:textAppearance="?android:attr/textAppearanceSmall"
 	              android:textColor="#E5C41A" />
 
 	          <EditText
-	              android:id="@+id/editDescription"
+	              android:id="@+id/tfEditDescription"
 	              android:layout_width="wrap_content"
 	              android:layout_height="wrap_content"
-	              android:layout_below="@+id/btnPhoto"
+	              android:layout_below="@+id/editEbtnPhoto"
 	              android:layout_toRightOf="@+id/ceDescription"
 	              android:ems="10"
 	              android:gravity="top|left"
@@ -316,19 +316,19 @@
 	              android:scrollbars="vertical" />
 
 	          <Spinner
-	              android:id="@+id/spinnerCategories"
+	              android:id="@+id/editEspinnerCategories"
 	              android:layout_width="wrap_content"
 	              android:layout_height="wrap_content"
-	              android:layout_alignRight="@+id/btnPhoto"
-	              android:layout_below="@+id/editDescription"
+	              android:layout_alignRight="@+id/editEbtnPhoto"
+	              android:layout_below="@+id/tfEditDescription"
 	              android:layout_marginTop="16dp"
-	              android:layout_toRightOf="@+id/ceCategory" />
+	              android:layout_toRightOf="@+id/editECategory" />
 
 	          <Button
-	              android:id="@+id/btnStartTimePicker"
+	              android:id="@+id/editEbtnStartTimePicker"
 	              android:layout_width="wrap_content"
 	              android:layout_height="25dp"
-	              android:layout_alignBottom="@+id/ceStartTime"
+	              android:layout_alignBottom="@+id/editEStartTime"
 	              android:layout_toRightOf="@+id/ceDescription" 
 	              android:text="Pick Start Time"
 	              android:background="#E5C41A"
@@ -336,23 +336,23 @@
 	              android:textSize="8dp"/>
 
 	          <TextView
-	              android:id="@+id/ceDay"
+	              android:id="@+id/editEDay"
 	              android:layout_width="wrap_content"
 	              android:layout_height="wrap_content"
-	              android:layout_above="@+id/btnStartTimePicker"
+	              android:layout_above="@+id/editEbtnStartTimePicker"
 	              android:layout_alignParentLeft="true"
 	              android:text="What Day is it on?"
 	              android:textAppearance="?android:attr/textAppearanceSmall"
 	              android:textColor="#E5C41A" />
 
 	          <Button
-	              android:id="@+id/btnShowDate"
+	              android:id="@+id/editEBtnShowDate"
 	              style="?android:attr/buttonStyleSmall"
 	              android:layout_width="wrap_content"
 	              android:layout_height="25dp"
-	              android:layout_alignBottom="@+id/ceDay"
-	              android:layout_toLeftOf="@+id/spinnerState"
-	              android:layout_toRightOf="@+id/ceDay"
+	              android:layout_alignBottom="@+id/editEDay"
+	              android:layout_toLeftOf="@+id/editEspinnerState"
+	              android:layout_toRightOf="@+id/editEDay"
 	              android:background="#E5C41A"
 	              android:text="Pick Date"
 	              android:textColor="#ffffff"
@@ -363,17 +363,17 @@
 	              android:layout_width="wrap_content"
 	              android:layout_height="wrap_content"
 	              android:layout_alignParentLeft="true"
-	              android:layout_below="@+id/spinnerCategories"
+	              android:layout_below="@+id/editEspinnerCategories"
 	              android:text="Price: $"
 	              android:textColor="#E5C41A" />
 
 	          <EditText
-	              android:id="@+id/editPrice"
+	              android:id="@+id/tfEditPrice"
 	              android:layout_width="40dp"
 	              android:layout_height="wrap_content"
 	              android:layout_alignBaseline="@+id/cePrice"
-	              android:layout_alignBottom="@+id/btnSubmit"
-	              android:layout_alignRight="@+id/ceCategory"
+	              android:layout_alignBottom="@+id/editEBtnUpdateEvent"
+	              android:layout_alignRight="@+id/editECategory"
 	              android:layout_toLeftOf="@+id/cePrice"
 	              android:inputType="number"
 	              android:text="0"

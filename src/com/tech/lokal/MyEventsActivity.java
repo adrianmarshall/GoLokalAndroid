@@ -127,19 +127,16 @@ public class MyEventsActivity extends ListActivity {
 					
 					Toast.makeText(MyEventsActivity.this, "Item Selected: "+ position, Toast.LENGTH_LONG).show();
 					
-					/*	Uncomment **********	 GO TO EDIT EVENT VIEW ********** <---- TO-Do: Implement
-					 * TODO - Add EditEventActivity 
-					 * 
-					 * 
-					 * 
+					// **********	 GO TO EDIT EVENT VIEW ********** <---- TO-Do: Implement
+					
 					 Intent editEvent = new Intent(getApplicationContext(), EditEventActivity.class);
 					  
-					 String event_id = ((TextView) view.findViewById(R.id.myevents_id)).getText().toString(); 		// Gets the id for the event clicked
+					 String event_id = ((TextView) view.findViewById(R.id.myevent_id)).getText().toString(); 		// Gets the id for the event clicked
 					 editEvent.putExtra("event_id",event_id);		//sends the event id to  EventDetailActivity 
 					  
 					 startActivity(editEvent);
 					  
-					 */
+				
 				}
 				
 			});

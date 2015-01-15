@@ -86,20 +86,20 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 		
 		
 		 
-		 btnPickDate = (Button) findViewById(R.id.btnShowDate);
+		 btnPickDate = (Button) findViewById(R.id.editEBtnShowDate);
 		 
 		 
 		 // buttons 
-		  btnSubmit = (Button) findViewById(R.id.btnSubmit);
-		  btnStartTimePicker = (Button) findViewById(R.id.btnStartTimePicker);
-		  btnEndTimePicker = (Button) findViewById(R.id.btnEndTime);
-		  btnPhoto = (Button) findViewById(R.id.btnPhoto);
+		  btnSubmit = (Button) findViewById(R.id.editEBtnUpdateEvent);
+		  btnStartTimePicker = (Button) findViewById(R.id.editEbtnStartTimePicker);
+		  btnEndTimePicker = (Button) findViewById(R.id.editEbtnEndTime);
+		  btnPhoto = (Button) findViewById(R.id.editEbtnPhoto);
 		  
 		 
 		 
 		
-		 spinCategories = (Spinner) findViewById(R.id.spinnerCategories);
-		 spinState = (Spinner) findViewById(R.id.spinnerState);
+		 spinCategories = (Spinner) findViewById(R.id.editEspinnerCategories);
+		 spinState = (Spinner) findViewById(R.id.editEspinnerState);
 		
 		// ************* SETUP SPINNER FOR STATES *********************
 		int spinPosition = 0; 		// Spinner Selection position 
@@ -118,14 +118,14 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 		spinState.setAdapter(adapterState);
 		spinState.setSelection(spinPosition);
 		
-		 editTitle = (EditText) findViewById(R.id.editTitle);
-		 editLocationName = (EditText) findViewById(R.id.editLocationName);
-		 editAddressline1 = (EditText) findViewById(R.id.editAddresssLine1);
-		 editAddressline2 = (EditText) findViewById(R.id.editAddressLine2);
-		 editCity = (EditText) findViewById(R.id.editCity);
-		 editZipcode = (EditText) findViewById(R.id.editZipcode);
-		 editDescription = (EditText) findViewById(R.id.editDescription);
-		 editPrice = (EditText) findViewById(R.id.editPrice);
+		 editTitle = (EditText) findViewById(R.id.tfEditTitle);
+		 editLocationName = (EditText) findViewById(R.id.tfEditLocationName);
+		 editAddressline1 = (EditText) findViewById(R.id.tfEditAddresssLine1);
+		 editAddressline2 = (EditText) findViewById(R.id.tfEditAddressLine2);
+		 editCity = (EditText) findViewById(R.id.tfEditCity);
+		 editZipcode = (EditText) findViewById(R.id.tfEditZipcode);
+		 editDescription = (EditText) findViewById(R.id.tfEditDescription);
+		 editPrice = (EditText) findViewById(R.id.tfEditPrice);
 		 
 		 // Get the users username
 		sharedPreferences = getSharedPreferences(MyPREFERENCES,Context.MODE_PRIVATE);

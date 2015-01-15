@@ -277,6 +277,8 @@ public class EventDetailActivity extends Activity {
 	    	String username = "";
 	    	
 	    	// Get the logged in users username and password
+	    	// Because we need to be a user to access this URI
+	    	
 	    	SharedPreferences sharedPreferences;
 	    	final String MyPREFERENCES = "MyPrefs" ;
 			sharedPreferences = getSharedPreferences(MyPREFERENCES,Context.MODE_PRIVATE);
