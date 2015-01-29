@@ -35,7 +35,7 @@ public class EventDetailActivity extends Activity {
 	//Progress Dialog
 	private ProgressDialog pDialog;
 	JSONObject event = null;
-	final String SITE_URL = "http://lokalapp.co/";
+	final String SITE_URL = "http://192.168.1.3:8000/";
 	
 	
 	// Create TextViews to hold event information

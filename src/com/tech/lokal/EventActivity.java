@@ -50,7 +50,7 @@ public class EventActivity extends ListActivity{
 	static final String TAG_START_TIME = "startTime";
 	static final String TAG_DESCRIPTION = "description";
 	
-	public static final String URL_EVENT = "http://lokalapp.co/api/event/?format=json";
+	public static final String URL_EVENT = "http://192.168.1.3:8000/api/event/?format=json";
 	
 	//Parameter for the date to filter by 
 	String dateParam = "";			// Concatenate the date if user selects to use a certain date

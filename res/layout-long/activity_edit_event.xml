@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/ceRelativeL"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+        
+            <TextView
+	        android:id="@+id/textView1"
+	        android:layout_width="200dp"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentTop="true"
+	        android:layout_centerHorizontal="true"
+	        android:layout_marginTop="27dp"
+	        android:text="Create your Event with Go Lokal"
+	        android:textAppearance="?android:attr/textAppearanceLarge"
+	        android:textColor="#E5C41A" />
+
+	    <TextView
+	        android:id="@+id/textView2"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentStart="true"
+	        android:layout_below="@+id/textView1"
+	        android:layout_marginTop="21dp"
+	        android:text="Please fill in all the fields below: " 
+	        android:textColor="#E5C41A"
+	        />
+	    
+	     <TextView
+	         android:id="@+id/editETitle"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:layout_alignParentLeft="true"
+	         android:layout_alignParentStart="true"
+	         android:layout_below="@+id/textView2"
+	         android:layout_marginTop="21dp"
+	         android:text="Title: "
+	         android:textColor="#E5C41A" />
+	     
+	     <TextView
+	         android:id="@+id/editELocationName"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:layout_alignParentLeft="true"
+	         android:layout_alignParentStart="true"
+	         android:layout_below="@+id/editETitle"
+	         android:layout_marginTop="10dp"
+	         android:text="Location Name: "
+	         android:textColor="#E5C41A" />
+	     
+	     <TextView
+	         android:id="@+id/editEAddressLine1"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:layout_alignParentLeft="true"
+	         android:layout_alignParentStart="true"
+	         android:layout_below="@+id/editELocationName"
+	         android:layout_marginTop="10dp"
+	         android:text="Address Line 1: "
+	         android:textColor="#E5C41A" />
+	     
+	     <TextView
+	         android:id="@+id/editEAddressLine2"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:layout_alignParentLeft="true"
+	         android:layout_alignParentStart="true"
+	         android:layout_below="@+id/editEAddressLine1"
+	         android:layout_marginTop="10dp"
+	         android:text="Address Line 2: "
+	         android:textColor="#E5C41A" />
+	     
+	       <TextView
+	           android:id="@+id/editECity"
+	           android:layout_width="wrap_content"
+	           android:layout_height="wrap_content"
+	           android:layout_alignParentLeft="true"
+	           android:layout_alignParentStart="true"
+	           android:layout_below="@+id/editEAddressLine2"
+	           android:layout_marginTop="10dp"
+	           android:text="City: "
+	           android:textColor="#E5C41A" />
+
+	       <TextView
+	           android:id="@+id/editEState"
+	           android:layout_width="wrap_content"
+	           android:layout_height="wrap_content"
+	           android:layout_alignBaseline="@+id/editECity"
+	           android:layout_alignBottom="@+id/editECity"
+	           android:layout_centerHorizontal="true"
+	           android:text="State: "
+	           android:textColor="#E5C41A" />
+
+	          <TextView
+	              android:id="@+id/editEPhoto"
+	              android:layout_width="wrap_content"
+	              android:layout_height="wrap_content"
+	              android:layout_alignParentLeft="true"
+	              android:layout_below="@+id/editEStartTime"
+	              android:layout_marginTop="24dp"
+	              android:text="Pick Event Photo to use: "
+	              android:textAppearance="?android:attr/textAppearanceSmall"
+	              android:textColor="#E5C41A" />
+
+	          <TextView
+	              android:id="@+id/editEEndTime"
+	              android:layout_width="wrap_content"
+	              android:layout_height="wrap_content"
+	              android:layout_alignBottom="@+id/editEbtnEndTime"
+	              android:layout_toRightOf="@+id/editEPhoto"
+	              android:text="End Time:"
+	              android:textAppearance="?android:attr/textAppearanceSmall"
+	              android:textColor="#E5C41A" />
+
+	          <EditText
+	              android:id="@+id/tfEditLocationName"
+	              android:layout_width="wrap_content"
+	              android:layout_height="wrap_content"
+	              android:layout_alignBottom="@+id/editELocationName"
+	              android:layout_below="@+id/tfEditTitle"
+	              android:layout_toRightOf="@+id/editELocationName"
+	              android:hint="What&apos;s the name of the place?"
+	              android:inputType="text"
+	              android:singleLine="true"
+	              android:textSize="12sp" />
+
+	          <EditText
+	              android:id="@+id/tfEditAddresssLine1"
+	              android:layout_width="wrap_content"
+	              android:layout_height="wrap_content"
+	              android:layout_above="@+id/editEAddressLine2"
+	              android:layout_toRightOf="@+id/editEAddressLine1"
+	              android:ems="10"
+	              android:hint="Address Line 1"
+	              android:inputType="text"
+	              android:singleLine="true"
+	              android:textSize="12sp" />
+
+	          <EditText
+	              android:id="@+id/tfEditAddressLine2"
+	              android:layout_width="wrap_content"
+	              android:layout_height="wrap_content"
+	              android:layout_below="@+id/editEAddressLine1"
+	              android:layout_toRightOf="@+id/editEAddressLine2"
+	              android:ems="10"
+	              android:hint="Address Line 2"
+	              android:inputType="text"
+	              android:singleLine="true"
+	              android:textSize="12sp" />
+
+	          <EditText
+	              android:id="@+id/tfEditCity"
+	              android:layout_width="wrap_content"
+	              android:layout_height="wrap_content"
+	              android:layout_alignBaseline="@+id/editEState"
+	              android:layout_alignBottom="@+id/editEState"
+	              android:layout_toLeftOf="@+id/editEState"
+	              android:layout_toRightOf="@+id/editETitle"
+	              android:ems="10"
+	              android:hint="City"
+	              android:inputType="text"
+	              android:singleLine="true"
+	              android:textSize="12sp" />
+
+	          <Spinner
+	              android:id="@+id/editEspinnerState"
+	              android:layout_width="wrap_content"
+	              android:layout_height="wrap_content"
+	              android:layout_above="@+id/editEStartTime"
+	              android:layout_below="@+id/editEAddressLine2"
+	              android:layout_toRightOf="@+id/editEState" />
+
+	          <TextView
+	              android:id="@+id/editEZipcode"
+	              android:layout_width="wrap_content"
+	              android:layout_height="wrap_content"
+	              android:layout_alignParentLeft="true"
+	              android:layout_below="@+id/tfEditCity"
+	              android:layout_marginTop="10dp"
+	              android:text="Zipcode"
+	              android:textAppearance="?android:attr/textAppearanceSmall"
+	              android:textColor="#E5C41A" />
+
+	          <EditText
+	              android:id="@+id/tfEditZipcode"
+	              android:layout_width="wrap_content"
+	              android:layout_height="wrap_content"
+	              android:layout_alignRight="@+id/tfEditCity"
+	              android:layout_below="@+id/editEState"
+	              android:layout_toRightOf="@+id/editEZipcode"
+	              android:hint="30458"
+	              android:inputType="number"
+	              android:textSize="12sp" />
+
+	          <TextView
+	              android:id="@+id/editEStartTime"
+	              android:layout_width="wrap_content"
+	              android:layout_height="wrap_content"
+	              android:layout_alignParentLeft="true"
+	              android:layout_below="@+id/tfEditZipcode"
+	              android:layout_marginTop="62dp"
+	              android:text="Start Time: "
+	              android:textAppearance="?android:attr/textAppearanceSmall"
+	              android:textColor="#E5C41A" />
+
+	          <DatePicker
+	              android:id="@+id/datePicker1"
+	              android:layout_width="wrap_content"
+	              android:layout_height="wrap_content"
+	              android:layout_alignRight="@+id/editEPhoto"
+	              android:layout_below="@+id/tfEditZipcode"
+	              android:layout_marginTop="16dp"
+	              android:text="Pick Date"
+	              android:visibility="gone"
+	               />
+
+	          <Button
+	              android:id="@+id/editEbtnEndTime"
+	              android:layout_width="wrap_content"
+	              android:layout_height="25dp"
+	              android:layout_alignRight="@+id/textView1"
+	              android:layout_alignTop="@+id/editEbtnStartTimePicker"
+	              android:background="#E5C41A"
+	              android:text="Pick End Time"
+	              android:textColor="#ffffff"
+	              android:textSize="8dp" />
+
+	          <Button
+	              android:id="@+id/editEbtnPhoto"
+	              style="?android:attr/buttonStyleSmall"
+	              android:layout_width="wrap_content"
+	              android:layout_height="25dp"
+	              android:layout_alignBaseline="@+id/editEPhoto"
+	              android:layout_alignBottom="@+id/editEPhoto"
+	              android:layout_alignLeft="@+id/editEEndTime"
+	              android:background="#E5C41A"
+	              android:text="Photo..."
+	              android:textColor="#FFFFFF"
+	              android:textSize="8sp" />
+
+	           <ImageView
+	               android:id="@+id/editEimg_event"
+	               android:layout_width="450dp"
+	               android:layout_height="70dp"
+	               android:layout_alignRight="@+id/editEPhoto"
+	               android:layout_below="@id/editEbtnPhoto"
+	               android:layout_gravity="center"
+	               android:contentDescription="Event Photo"
+	               android:padding="5dp"
+	               android:scaleType="centerInside" />
+
+	          <TextView
+	              android:id="@+id/editECategory"
+	              android:layout_width="wrap_content"
+	              android:layout_height="wrap_content"
+	              android:layout_alignParentLeft="true"
+	              android:layout_below="@+id/tfEditDescription"
+	              android:layout_marginTop="30dp"
+	              android:text="Pick Category: "
+	              android:textAppearance="?android:attr/textAppearanceSmall"
+	              android:textColor="#E5C41A" />
+
+	          <Spinner
+	              android:id="@+id/editEspinnerCategories"
+	              android:layout_width="wrap_content"
+	              android:layout_height="wrap_content"
+	              android:layout_alignRight="@+id/editEbtnPhoto"
+	              android:layout_below="@+id/tfEditDescription"
+	              android:layout_marginTop="16dp"
+	              android:layout_toRightOf="@+id/editECategory" />
+
+	          <Button
+	              android:id="@+id/editEbtnStartTimePicker"
+	              android:layout_width="wrap_content"
+	              android:layout_height="25dp"
+	              android:layout_alignBottom="@+id/editEStartTime"
+	              android:layout_toRightOf="@+id/ceDescription"
+	              android:background="#E5C41A"
+	              android:text="Pick Start Time"
+	              android:textColor="#ffffff"
+	              android:textSize="8dp" />
+
+	          <TextView
+	              android:id="@+id/editEDay"
+	              android:layout_width="wrap_content"
+	              android:layout_height="wrap_content"
+	              android:layout_above="@+id/editEbtnStartTimePicker"
+	              android:layout_alignParentLeft="true"
+	              android:text="What Day is it on?"
+	              android:textAppearance="?android:attr/textAppearanceSmall"
+	              android:textColor="#E5C41A" />
+
+	          <Button
+	              android:id="@+id/editEBtnShowDate"
+	              style="?android:attr/buttonStyleSmall"
+	              android:layout_width="wrap_content"
+	              android:layout_height="25dp"
+	              android:layout_alignBottom="@+id/editEDay"
+	              android:layout_toLeftOf="@+id/editEspinnerState"
+	              android:layout_toRightOf="@+id/editEDay"
+	              android:background="#E5C41A"
+	              android:text="Pick Date"
+	              android:textColor="#ffffff"
+	              android:textSize="10sp" />
+
+	          <TextView
+	              android:id="@+id/cePrice"
+	              android:layout_width="wrap_content"
+	              android:layout_height="wrap_content"
+	              android:layout_alignParentLeft="true"
+	              android:layout_below="@+id/editEspinnerCategories"
+	              android:text="Price: $"
+	              android:textColor="#E5C41A" />
+
+	          <EditText
+	              android:id="@+id/tfEditPrice"
+	              android:layout_width="40dp"
+	              android:layout_height="wrap_content"
+	              android:layout_alignBaseline="@+id/cePrice"
+	              android:layout_alignBottom="@+id/editEBtnUpdateEvent"
+	              android:layout_alignRight="@+id/editECategory"
+	              android:layout_toLeftOf="@+id/cePrice"
+	              android:inputType="number"
+	              android:text="0"
+	              android:textSize="14sp" />
+
+	          <Button
+	              android:id="@+id/editEBtnUpdateEvent"
+	              style="?android:attr/buttonStyleSmall"
+	              android:layout_width="wrap_content"
+	              android:layout_height="wrap_content"
+	              android:layout_below="@+id/cePrice"
+	              android:layout_centerHorizontal="true"
+	              android:layout_marginTop="50dp"
+	              android:background="#E5C41A"
+	              android:text="Update Event"
+	              android:textColor="#ffffff" />
+
+	          <Button
+	              android:id="@+id/editEBtnDeleteEvent"
+	              android:layout_width="wrap_content"
+	              android:layout_height="wrap_content"
+	              android:layout_alignBaseline="@+id/editEBtnUpdateEvent"
+	              android:layout_alignBottom="@+id/editEBtnUpdateEvent"
+	              android:layout_toLeftOf="@+id/tfEditLocationName"
+	              android:background="#FF4545"
+	              android:text="Delete Event"
+	              android:textColor="#ffffff" />
+
+	          <EditText
+	              android:id="@+id/tfEditDescription"
+	              android:layout_width="300dp"
+	              android:layout_height="wrap_content"
+	              android:layout_alignLeft="@+id/editEbtnStartTimePicker"
+	              android:layout_below="@+id/editEbtnPhoto"
+	              android:layout_marginTop="62dp"
+	              android:ems="10"
+	              android:gravity="top|left"
+	              android:inputType="textMultiLine"
+	              android:lines="4"
+	              android:maxLines="6"
+	              android:scrollbars="vertical"
+	              android:textSize="10sp" />
+
+	          <TextView
+	              android:id="@+id/ceDescription"
+	              android:layout_width="wrap_content"
+	              android:layout_height="wrap_content"
+	              android:layout_alignBottom="@+id/tfEditDescription"
+	              android:layout_alignParentLeft="true"
+	              android:text="Description: "
+	              android:textAppearance="?android:attr/textAppearanceSmall"
+	              android:textColor="#E5C41A" />
+
+	          <EditText
+	              android:id="@+id/tfEditTitle"
+	              android:layout_width="300dp"
+	              android:layout_height="wrap_content"
+	              android:layout_above="@+id/editELocationName"
+	              android:layout_toRightOf="@+id/cePrice"
+	              android:ems="10"
+	              android:hint="Enter a Title for your event"
+	              android:inputType="text"
+	              android:singleLine="true"
+	              android:textSize="12sp" />
+	          
+	</RelativeLayout>
+
+</ScrollView>

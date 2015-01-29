@@ -71,7 +71,7 @@ public class MyEventsActivity extends ListActivity {
 		
 		// append -->   &user__username= <user's username>
 		
-		private static String URL_EVENT = "http://lokalapp.co/api/event/?format=json";
+		private static String URL_EVENT = "http://192.168.1.3:8000/api/event/?format=json";
 		
 		//Parameter for the date to filter by 
 		String dateParam = "";			// Add the name of the user to get all events from this user

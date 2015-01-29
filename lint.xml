@@ -3,6 +3,9 @@
     <issue id="NewApi">
         <ignore path="src/com/tech/lokal/CreateEventActivity.java" />
     </issue>
+    <issue id="SimpleDateFormat">
+        <ignore path="src/com/tech/lokal/EditEventActivity.java" />
+    </issue>
     <issue id="ViewHolder" severity="ignore">
         <ignore path="src/com/tech/lokal/MyEventsListAdapter.java" />
     </issue>

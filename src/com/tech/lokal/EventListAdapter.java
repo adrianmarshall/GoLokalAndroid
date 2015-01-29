@@ -20,7 +20,7 @@ public class EventListAdapter extends BaseAdapter{
 	private final ArrayList<HashMap <String,String>> urls;		// Array list of HashMap Strings( The Events attributes)
 	HashMap<String,String> result = new HashMap<String,String>();
 	
-	public static final String EVENT_IMAGE_URL = "http://lokalapp.co/"; 	// base url for site.. all image URI's will be appended to get the actual URL
+	public static final String EVENT_IMAGE_URL = "http://192.168.1.3:8000/"; 	// base url for site.. all image URI's will be appended to get the actual URL
 	
 	LayoutInflater inflater;
 	

@@ -42,7 +42,7 @@ public class SettingsActivity extends Activity implements OnClickListener{
 	
 	public static final String MyPREFERENCES = "MyPrefs" ;
 	public static final String passwordKey = "password";
-	public static final String URL_ChangePassword = "http://lokalapp.co/api/mobile_changePassword/";
+	public static final String URL_ChangePassword = "http://192.168.1.3:8000/api/mobile_changePassword/";
 	
 	
 	

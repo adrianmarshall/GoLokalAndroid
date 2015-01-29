@@ -178,7 +178,7 @@ public class RegisterActivity extends Activity {
 	
 	public int register(String email,String username, String password){
 		
-		String registerURL = "http://lokalapp.co/api/register/?format=json";		// API URL to register a new User with Go Lokal
+		String registerURL = "http://192.168.1.3:8000//api/register/?format=json";		// API URL to register a new User with Go Lokal
 		InputStream is = null;
 		String result = "";		//
 		int status = 0;

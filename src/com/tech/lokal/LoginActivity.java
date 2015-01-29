@@ -170,7 +170,7 @@ public class LoginActivity extends ActionBarActivity {
 	public void Login(String username,String password) throws ClientProtocolException, IOException,JSONException{
 		
 		DefaultHttpClient client = new DefaultHttpClient();
-		final String URL = "http://lokalapp.co/api/auth/user/?format=json&username="+username;
+		final String URL = "http://192.168.1.3:8000/api/auth/user/?format=json&username="+username;		//TODO change from local machine to real domain name for production
 		HttpGet get = new HttpGet(URL);
 		Credentials cred = new UsernamePasswordCredentials(username,password);		// creating our user credentials to pass to the client
 		client.getCredentialsProvider().setCredentials(new AuthScope(AuthScope.ANY_HOST,AuthScope.ANY_PORT), cred);
