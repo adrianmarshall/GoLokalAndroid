@@ -1,26 +1,47 @@
 package com.tech.lokal;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.squareup.picasso.Picasso;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.format.DateFormat;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,6 +54,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 public class EditEventActivity extends Activity implements OnClickListener{
 
 	private Context mContext;
@@ -44,17 +67,22 @@ public class EditEventActivity extends Activity implements OnClickListener{
 	
 	// Create TextViews to hold event information
     
-    private TextView title,likes_count,date,description,locationName,addressLine1,addressLine2,
-    		 city,state,zipcode,user= null;
+    private TextView editTitle,editDate,editDescription,editLocationName,editAddressLine1,editAddressLine2,
+    		 editCity,editState,editZipcode,editPrice,editUser= null;
     
-    private String startTime,endTime,eventDay;		// Times for event
-    private Button btnUpdateEvent, btnDeleteEvent,btnShowDate,btnStartDatePicker,btnEndDatePicker,btnPhotoPicker,btnStartTime;
+    private String startTime,endTime,eventDay;		// Times for event, String SQL Format
+    private boolean startTimeSet, endTimeSet, eventDaySet = false;
+    private String base64Photo;
+    private Button btnUpdateEvent, btnDeleteEvent,btnShowDate,btnStartDatePicker,btnEndDatePicker,btnPhoto,btnStartTime;
     private int mYear,mMonth,mDay;	// Year,Month, and Day for the event
+	private static int RESULT_LOAD_IMAGE = 1; 		// This is to handle the result back when an image is selected from Image Gallery.
+
     private Date event_date,event_startTime,event_endTime;
     private Spinner spinStates,spinCategories;		// Spinner for the states & categories
     private String[] statesList,categoriesList;
    
     private ImageView event_image = null;		// Image view holder for the picture of the event
+    private Bitmap eventPhoto = null; 			// Bitmap image that we will get from the user and send to the server
     
 	 @Override
 	    public void onCreate(Bundle savedInstanceState) {
@@ -88,7 +116,7 @@ public class EditEventActivity extends Activity implements OnClickListener{
 	        btnShowDate = (Button) findViewById(R.id.editEBtnShowDate);
 	        btnStartDatePicker = (Button) findViewById(R.id.editEbtnStartTimePicker);
 	        btnEndDatePicker = (Button) findViewById(R.id.editEbtnEndTime);
-	        btnPhotoPicker = (Button) findViewById(R.id.editEbtnPhoto);
+	        btnPhoto = (Button) findViewById(R.id.editEbtnPhoto);
 	        event_image = (ImageView) findViewById(R.id.editEimg_event);		// image holder for event image
 	        
 	        spinStates = (Spinner) findViewById(R.id.editEspinnerState);
@@ -125,12 +153,14 @@ public class EditEventActivity extends Activity implements OnClickListener{
 	        btnStartDatePicker.setOnClickListener(this);
 	        btnEndDatePicker.setOnClickListener(this);
 	        
+	        
+	        
 	    }
 
 	    // This will return our JSON object
 	    public JSONObject getSingleEvent(String event_id){			
 	    	
-	    	String URL_Event = "http://192.168.1.3:8000/api/event/?format=json";
+	    	String URL_Event = "http://192.168.1.9:8000/api/event/?format=json";
 	    	String params = "&id=";
 	    	params += event_id;		// appends the event objects ID number to the 'params' variable
 	    	
@@ -159,6 +189,9 @@ public class EditEventActivity extends Activity implements OnClickListener{
 			
 			// Update button is clicked
 			if(v == btnUpdateEvent){
+				
+				// Gets the event parameters and sends them to the server to be updated.
+				new uploadEvent().execute(getEventParams());
 				
 			}
 			
@@ -251,9 +284,105 @@ public class EditEventActivity extends Activity implements OnClickListener{
 				tpd.show();
 			}
 			
+			// When user clicks on the Photo button
+			if(v == btnPhoto){
+				
+				Intent i = new Intent(
+						Intent.ACTION_PICK,
+						android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+						);
+				startActivityForResult(i,RESULT_LOAD_IMAGE);
+				
+			}
+			
 		}
-	
+		
+		
+// 2 Functions below to handle uploading the image
+		// The function called when the user is done picking a photo from the gallery
+		@Override
+		protected void onActivityResult(int requestCode,int resultCode,Intent data){
+			super.onActivityResult(requestCode, resultCode, data);
+			
+			// TODO get required width and height from photo 
+			int reqWidth = 150;
+			int reqHeight = 250;
+			
+			if(requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data){
+				Uri selectedImage = data.getData();
+				String[] filePathColumn = {MediaStore.Images.Media.DATA};
+				
+				Cursor cursor = getContentResolver().query(selectedImage,
+						filePathColumn, null, null, null);
+				cursor.moveToFirst();
+				
+				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+				String picturePath = cursor.getString(columnIndex);
+				cursor.close();
+				
+				// TODO:  Add a Try-catch block to catch OutOfMemory Exception when Bitmap is too big. If it is, Then resize
+				 //Creating BitmapFactory options to resize/downsize the image if it's too big
+				final BitmapFactory.Options options = new BitmapFactory.Options();
+				options.inJustDecodeBounds = true;		//Setting the inJustDecodeBounds property to true while decoding avoids memory allocation error( OutOfMemory error)
+				
+				// Get image
+				BitmapFactory.decodeFile(picturePath,options);
+				
+				// Caluclate inSampleSize
+				options.inSampleSize = calculateInSampleSize(options,reqWidth,reqHeight);
+				
+				// Decode bitmap with inSampleSize set 
+				options.inJustDecodeBounds = false;
+				eventPhoto = BitmapFactory.decodeFile(picturePath,options);
+				
+				if(eventPhoto != null){
+					Toast.makeText(getApplicationContext(), "Photo has been picked", Toast.LENGTH_SHORT).show();
+				}else {
+					Toast.makeText(getApplicationContext(), "Couldn't get the photo. Please pick the photo again", Toast.LENGTH_SHORT).show();
+				}
+				
+				
+			}
+			
+		}
+		// Gets the sample size of the photo the user picked so we can resize it
+		public static int calculateInSampleSize(
+	            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+	    // Raw height and width of image
+	    final int height = options.outHeight;
+	    final int width = options.outWidth;
+	    int inSampleSize = 1;
 
+	    if (height > reqHeight || width > reqWidth) {
+
+	        final int halfHeight = height / 2;
+	        final int halfWidth = width / 2;
+
+	        // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+	        // height and width larger than the requested height and width.
+	        while ((halfHeight / inSampleSize) > reqHeight
+	                && (halfWidth / inSampleSize) > reqWidth) {
+	            inSampleSize *= 2;
+	        }
+	    }
+
+	    return inSampleSize;
+	}
+		
+		// Converts image to Base64 encoding.. The django server side of Go Lokal takes the image in base64 format and decodes it
+		 public String convert_bitmap_to_string(Bitmap bitmap)
+		    {
+			 // Re-size image before uploading or will get an outOfMemory error.
+			 // In testing..Photos that have been resized to Instagram upload with no problem.
+		        ByteArrayOutputStream full_stream = new ByteArrayOutputStream();
+		        bitmap.compress(Bitmap.CompressFormat.PNG, 100, full_stream);
+		        byte[] full_bytes = full_stream.toByteArray();
+		        String Str_image = Base64.encodeToString(full_bytes, Base64.DEFAULT);
+
+		        return Str_image; 
+		    }
+		
+		 // Loads all of the information for this event
 	    public class loadEvent extends AsyncTask<String,String,String>{
 
 	    	
@@ -319,18 +448,19 @@ public class EditEventActivity extends Activity implements OnClickListener{
 	    	
 	        
 	    
-	        title = (TextView) findViewById(R.id.tfEditTitle);
+	        editTitle = (TextView) findViewById(R.id.tfEditTitle);
 	      //  likes_count = (TextView) findViewById(R.id.likes_count);
-	        date = (TextView) findViewById(R.id.editEBtnShowDate);
+	        editDate = (TextView) findViewById(R.id.editEBtnShowDate);
 	        
 	        
-	        description = (TextView) findViewById(R.id.tfEditDescription);
-	        locationName = (TextView) findViewById(R.id.tfEditLocationName);
-	        addressLine1 = (TextView) findViewById(R.id.tfEditAddresssLine1);
-	        addressLine2 = (TextView) findViewById(R.id.tfEditAddressLine2);
-	        city = (TextView) findViewById(R.id.tfEditCity);
+	        editDescription = (TextView) findViewById(R.id.tfEditDescription);
+	        editLocationName = (TextView) findViewById(R.id.tfEditLocationName);
+	        editAddressLine1 = (TextView) findViewById(R.id.tfEditAddresssLine1);
+	        editAddressLine2 = (TextView) findViewById(R.id.tfEditAddressLine2);
+	        editCity = (TextView) findViewById(R.id.tfEditCity);
 	        
-	        zipcode = (TextView) findViewById(R.id.tfEditZipcode);
+	        editZipcode = (TextView) findViewById(R.id.tfEditZipcode);
+	        editPrice = (TextView) findViewById(R.id.tfEditPrice);
 
 	       
        Log.d("AFTER EVENT", "after getting json.before getting strings");
@@ -349,6 +479,20 @@ public class EditEventActivity extends Activity implements OnClickListener{
         	 String TAG_CITY = event.getString("city");
         	 String TAG_STATE = event.getString("state");
         	 String TAG_ZIPCODE = event.getString("zipcode");
+        	 String TAG_PRICE = event.getString("price");
+        	 
+        	 // Set startTime,endTime, and eventDay. Set these variables now so if the user
+        	 // doesn't change the date then the same date will be sent back to the API
+        	 // IN IT'S SQL FORMAT so we will not get an error converting the time over the server.
+        	 eventDay = TAG_DATE;
+        	 eventDaySet = true;
+        	 
+        	 startTime = TAG_START_TIME;
+        	 startTimeSet = true;
+        	 
+        	 endTime = TAG_END_TIME;
+        	 endTimeSet = true;
+        	 
         	 
         	 // Get the Day, Month, and Year from the event and set it when the "Pick Day" button is clicked
         	 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -374,15 +518,16 @@ public class EditEventActivity extends Activity implements OnClickListener{
         	 // theUserName = getUserName(TAG_USER);		// HTTP request to get the Users username
         	 
         	 // Here we set the text Values on all of our TextViews (labels so to speak) in our User Interface layout
-        	title.setText(TAG_TITLE);
+        	editTitle.setText(TAG_TITLE);
         //	likes_count.setText(TAG_LIKES);
 
-        	description.setText(TAG_DESCRIPTION);
-        	locationName.setText(TAG_LOCATION_NAME);
-        	addressLine1.setText(TAG_ADDRESSLINE1);
-        	addressLine2.setText(TAG_ADDRESSLINE2);
-        	city.setText(TAG_CITY);
-        	zipcode.setText(TAG_ZIPCODE);
+        	editDescription.setText(TAG_DESCRIPTION);
+        	editLocationName.setText(TAG_LOCATION_NAME);
+        	editAddressLine1.setText(TAG_ADDRESSLINE1);
+        	editAddressLine2.setText(TAG_ADDRESSLINE2);
+        	editCity.setText(TAG_CITY);
+        	editZipcode.setText(TAG_ZIPCODE);
+        	editPrice.setText(TAG_PRICE);
         	
         	// Set the state. Loops through the state list and finds the State associated with this selected event
         	for(int i =0; i < statesList.length;i++){
@@ -429,27 +574,266 @@ public class EditEventActivity extends Activity implements OnClickListener{
 	    } // End of setEventData
 	    
 	   // update the event
-	    public class updateEvent extends AsyncTask<String,String,String>{
-
-		@Override
-		protected String doInBackground(String... params) {
-			// TODO Auto-generated method stub
-			return null;
+		
+		public class uploadEvent extends AsyncTask<String,String,String>{
+			private ProgressDialog pDialog;
+			
+			@Override 
+			protected void onPreExecute(){
+				super.onPreExecute();
+				
+				pDialog = new ProgressDialog(EditEventActivity.this);
+				pDialog.setMessage(" Uploading Event...");
+				pDialog.setIndeterminate(false);
+				pDialog.setCancelable(false);
+				pDialog.show();
+				
+			}
+			
+			@Override
+			protected String doInBackground(String... params) {
+				
+				int status = submitEvent(params);		// submits the event
+				return status+"";
+			}
+			
+			@Override
+			protected void onPostExecute(String data){
+				pDialog.dismiss();
+				
+				//int status = Integer.getInteger(data);
+				if(data == "200"){
+					Toast.makeText(getApplicationContext(), "Event Updated Successfully", Toast.LENGTH_LONG).show();
+				}
+				else{
+					Toast.makeText(getApplicationContext(), "Error updating event. Status code: "+data, Toast.LENGTH_LONG).show();
+				}
+			}
+		
 		}
-	    	
-	    }
+		
+		// The function that submits the event and updates it on the server side.
+		private int submitEvent(String[] event){
+			// get information out of event to be more readable in this section of code
+			String title,locationName,addressline1,addressline2,startTime,endTime,city,state,zipcode,description,
+			category,price,username,event_id;
+			
+			title = event[0];
+			locationName = event[1];
+			addressline1 = event[2];
+			addressline2 = event[3];
+			city = event[4];
+			state = event[5];
+			zipcode = event[6];
+			startTime = event[8];
+			endTime = event[9];
+			description = event[10];
+			category = event[11];
+			price = "0"; // event[12]; 	TODO check on this to make sure we can get the price argument 
+			event_id = event[14];	
+			username = getUserNameFromPref();		
+			
+			Log.d("price: ", event[12]);
+			
+			
+			
+			String updateEventURL = "http://192.168.1.9:8000/api/Mobile_UpdateEvent/";		// API URL to update an event TODO : create API
+			InputStream is = null;
+			String result = "";		//
+			int status = 0;
+			
+			Log.d("submitEvent", "in Submit Event");
+			try{
+				DefaultHttpClient client = new DefaultHttpClient();
+				HttpPost post = new HttpPost(updateEventURL);
+				
+				
+				List<NameValuePair> postParams = new ArrayList<NameValuePair>(); 		// Array list of NameValuePairs to hold user information
+
+				postParams.add(new BasicNameValuePair("id",event_id));
+				postParams.add(new BasicNameValuePair("title",title));
+				postParams.add(new BasicNameValuePair("locationname",locationName));
+				postParams.add(new BasicNameValuePair("startTime",startTime));
+				postParams.add(new BasicNameValuePair("endTime",endTime));
+				postParams.add(new BasicNameValuePair("addressline1",addressline1));
+				postParams.add(new BasicNameValuePair("addressline2",addressline2));
+				postParams.add(new BasicNameValuePair("city",city));
+				postParams.add(new BasicNameValuePair("state",state));
+				postParams.add(new BasicNameValuePair("zipcode",zipcode));
+				postParams.add(new BasicNameValuePair("description",description));
+				postParams.add(new BasicNameValuePair("price",price));
+				postParams.add(new BasicNameValuePair("category",category));
+				postParams.add(new BasicNameValuePair("photo",base64Photo));
+				// String name = "adrian";
+				postParams.add(new BasicNameValuePair("username",username));
+				postParams.add(new BasicNameValuePair("event_date",eventDay));
+				
+				
+				
+				// Execute post request to the API to update the event
+				
+				UrlEncodedFormEntity entity = new UrlEncodedFormEntity(postParams);
+				post.setEntity(entity);
+				HttpResponse response = client.execute(post);
+				HttpEntity responseEntity  = response.getEntity();
+				is = responseEntity.getContent();
+				
+				 status = response.getStatusLine().getStatusCode();
+				
+				 Log.v("status: ","" + status);
+				 
+			}catch(Exception e){
+				Log.e("RegisterActivity:","Error in Http connection" + e.toString());
+			}
+			
+			// Convert response to String
+			try{
+				BufferedReader reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),8);
+				StringBuilder sb = new StringBuilder();
+				String line = null;
+				
+				while((line = reader.readLine()) != null){
+					sb.append(line + "\n");
+				}
+				
+				is.close();
+				result = sb.toString();
+				
+				Log.v("log", "Result: " + result);
+				System.out.println(result);
+				
+				// save results to html file for viewing or any errors
+				// result will be saved in file named "myandroiderror.html"
+				try{
+				
+				File file = new File("out.txt");
+				FileOutputStream fos = new FileOutputStream(file);
+				PrintStream ps = new PrintStream(fos);
+				System.setOut(ps);
+				System.out.println(result);		// sends result to the file
+				PrintStream console = System.out; 
+				System.setOut(console);
+				
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+			} catch (Exception e ){
+				Log.v("Log:"," Error converting result " + e.toString());
+			}
+			/*
+			if(status == 500){
+				Context context = getApplicationContext();
+				String message = result;
+				int duration = Toast.LENGTH_LONG;
+				
+				Toast toast = Toast.makeText(context, message, duration);
+				toast.show();
+			}
+			*/
+			
+			return status;
+			
+			
+		}
+			
+
+		private String getUserNameFromPref(){
+			
+			// Create shared preferences
+			SharedPreferences sharedPreferences;
+			
+			final String MyPREFERENCES = "MyPrefs" ;
+			final String USERNAME_KEY = "username";
+			String userName = null;
+			
+			sharedPreferences = getSharedPreferences(MyPREFERENCES,Context.MODE_PRIVATE);
+			
+			// gets the users user name from the shared Preferences
+			if(sharedPreferences.contains(USERNAME_KEY)){
+				userName = sharedPreferences.getString(USERNAME_KEY, "");
+			}
+			
+			return userName;
+		}
 	    
 	    // Delete the event
 	    public class deleteEvent extends AsyncTask<String,String,String>{
 
 		@Override
 		protected String doInBackground(String... params) {
-			// TODO Auto-generated method stub
+			String id= params[0];
+			DeleteMyEvent(id);
 			return null;
 		}
 	    	
 	    }
 	    
+	    
+	    private String DeleteMyEvent(String event_id){
+	    	String returned_message = null;
+	    	
+	    	return returned_message;
+	    }
+	    // this function gets and returns a list of all of the parameters that have been filled in
+	    // will be called right before the event is sent to the server to be updated.
+		private String[] getEventParams() {
+			
+			String title = editTitle.getText().toString();
+			String locationName = editLocationName.getText().toString();
+			String addressline1 = editAddressLine1.getText().toString();
+			String addressline2 = editAddressLine2.getText().toString();
+			String city = editCity.getText().toString();
+			String state = spinStates.getSelectedItem().toString();
+			String zipcode = editZipcode.getText().toString();
+			String description = editDescription.getText().toString();
+			String category = spinCategories.getSelectedItem().toString();
+			String price = "0"; // editPrice.getText().toString();
+			
+			
+			String event_id = null;
+			try {
+				event_id = event.getString("id");
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+			
+			// Already got 'eventDay' , 'startTime' , and 'EndTime' variables when the user set them
+			// check to confirm if the program has already set the times for the event
+			if(startTimeSet == false && endTimeSet == false && eventDaySet == false){
+				
+			
+			startTime = eventDay+"T"+startTime;
+			endTime = eventDay+"T"+endTime;
+			}
+			//eventDay = eventDay+"T"+startTime;
+			
+			// IF the user doesn't pick a new image, keep the current one
+			if(eventPhoto == null){
+				
+			// Here we're taking the image that's within the image view, turning it into a bitmap so we can turn that into base64 format
+			event_image.buildDrawingCache();
+			eventPhoto = event_image.getDrawingCache();		// gets the Bitmap version of the image
+			}
+			
+			
+			// Converts the photo to a base64 encoding .. Sending to server in base64 format
+			base64Photo = convert_bitmap_to_string(eventPhoto);
+			
+			
+			if(base64Photo != null){
+				Log.d("base64:", "Photo converted successfully");
+			}else {
+				Log.d("base64: ", "Photo failed to convert to base64");
+			}
+			
+			String[] params = {title,locationName,addressline1,addressline2,city,state,zipcode,eventDay,startTime,endTime,description,category,price,base64Photo,event_id};
+			
+			
+			return params;
+		}
+		
 	    @SuppressWarnings("null")
 		public void checkNull(TextView view){
 	    	
@@ -474,17 +858,17 @@ public void checkNull(String text){
    		 		city,state,zipcode,user= null;
    		 	*/
 	    	
-	    	checkNull(title);
-	    	checkNull(date);
+	    	checkNull(editTitle);
+	    	checkNull(editDate);
 	    	checkNull(startTime);
 	    	checkNull(endTime);
-	    	checkNull(description);
-	    	checkNull(locationName);
-	    	checkNull(addressLine1);
-	    	checkNull(addressLine2);
-	    	checkNull(city);
-	    	checkNull(state);
-	    	checkNull(zipcode);
+	    	checkNull(editDescription);
+	    	checkNull(editLocationName);
+	    	checkNull(editAddressLine1);
+	    	checkNull(editAddressLine2);
+	    	checkNull(editCity);
+	    	checkNull(editState);
+	    	checkNull(editZipcode);
 	    	//checkNull(user);
 	    }
 

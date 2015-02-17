@@ -35,7 +35,7 @@ public class EventDetailActivity extends Activity {
 	//Progress Dialog
 	private ProgressDialog pDialog;
 	JSONObject event = null;
-	final String SITE_URL = "http://192.168.1.3:8000/";
+	final String SITE_URL = "http://192.168.1.9:8000/";
 	
 	
 	// Create TextViews to hold event information
@@ -76,7 +76,7 @@ public class EventDetailActivity extends Activity {
 	    // This will return our JSON object
 	    public JSONObject getSingleEvent(String event_id){			
 	    	
-	    	String URL_Event = "http://lokalapp.co/api/event/?format=json";
+	    	String URL_Event = "http://192.168.1.9:8000/api/event/?format=json";
 	    	String params = "&id=";
 	    	params += event_id;		// appends the event objects ID number to the 'params' variable
 	    	
