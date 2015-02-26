@@ -58,8 +58,6 @@ public class MyEventsActivity extends ListActivity {
 		static final String TAG_START_TIME = "startTime";
 		
 		
-		// TODO - Get users username and append to URL_event to get all the users events
-		
 		
 		SharedPreferences sharedPreferences;		// shared preferences will be used to store username & password information
 		

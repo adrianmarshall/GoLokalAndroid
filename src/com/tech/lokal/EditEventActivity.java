@@ -73,6 +73,7 @@ public class EditEventActivity extends Activity implements OnClickListener{
     private String startTime,endTime,eventDay;		// Times for event, String SQL Format
     private boolean startTimeSet, endTimeSet, eventDaySet = false;
     private String base64Photo;
+    private String event_id; 			// id number for this event 
     private Button btnUpdateEvent, btnDeleteEvent,btnShowDate,btnStartDatePicker,btnEndDatePicker,btnPhoto,btnStartTime;
     private int mYear,mMonth,mDay;	// Year,Month, and Day for the event
 	private static int RESULT_LOAD_IMAGE = 1; 		// This is to handle the result back when an image is selected from Image Gallery.
@@ -92,7 +93,7 @@ public class EditEventActivity extends Activity implements OnClickListener{
 	        
 	        
 	        Bundle extras = null;
-	        String event_id = null;		// The id of the event given from the "EventActivity" 
+	         event_id = null;		// The id of the event given from the "EventActivity" 
 	        
 	        // Getting The event Id from when it was clicked on in the EventActivity activity 
 	        if(savedInstanceState == null){
@@ -197,7 +198,7 @@ public class EditEventActivity extends Activity implements OnClickListener{
 			
 			// Delete button is clicked 
 			if(v == btnDeleteEvent){
-				
+				new deleteEvent().execute(event_id);
 			}
 			
 			// Show Date button is clicked 
@@ -304,7 +305,7 @@ public class EditEventActivity extends Activity implements OnClickListener{
 		protected void onActivityResult(int requestCode,int resultCode,Intent data){
 			super.onActivityResult(requestCode, resultCode, data);
 			
-			// TODO get required width and height from photo 
+			//  get required width and height from photo 
 			int reqWidth = 150;
 			int reqHeight = 250;
 			
@@ -664,7 +665,7 @@ public class EditEventActivity extends Activity implements OnClickListener{
 				postParams.add(new BasicNameValuePair("price",price));
 				postParams.add(new BasicNameValuePair("category",category));
 				postParams.add(new BasicNameValuePair("photo",base64Photo));
-				// String name = "adrian";
+			
 				postParams.add(new BasicNameValuePair("username",username));
 				postParams.add(new BasicNameValuePair("event_date",eventDay));
 				
@@ -759,12 +760,34 @@ public class EditEventActivity extends Activity implements OnClickListener{
 	    // Delete the event
 	    public class deleteEvent extends AsyncTask<String,String,String>{
 
+	    @Override
+	    protected void onPreExecute(){
+	    	super.onPreExecute();
+			
+			pDialog = new ProgressDialog(EditEventActivity.this);
+			pDialog.setMessage(" Deleting Event...");
+			pDialog.setIndeterminate(false);
+			pDialog.setCancelable(false);
+			pDialog.show();
+			
+	    }
 		@Override
 		protected String doInBackground(String... params) {
 			String id= params[0];
-			DeleteMyEvent(id);
-			return null;
+			String response = DeleteMyEvent(id);
+			return response;
 		}
+		
+		@Override
+	    protected void onPostExecute(String data){
+			pDialog.dismiss();
+	    	
+	    	Log.d("server_response: ",data);
+	    	System.out.println("Server Response: \n\n" + data);
+	    	Toast.makeText(getApplicationContext(), "Delete request finished", Toast.LENGTH_LONG).show();
+	    	
+	    }
+		
 	    	
 	    }
 	    
@@ -772,8 +795,18 @@ public class EditEventActivity extends Activity implements OnClickListener{
 	    private String DeleteMyEvent(String event_id){
 	    	String returned_message = null;
 	    	
+	    	final String DELETE_EVENT_URL = "http://192.168.1.9:8000/api/mobile_DeleteEvent";
+	    	final String method = "POST";
+	    	
+	    	Log.d("event_id:",event_id);
+	    	List<NameValuePair> postParams = new ArrayList<NameValuePair>();
+	    	postParams.add(new BasicNameValuePair("event_id",event_id));
+	    	returned_message = new JSONParser().makeHttpRequest(DELETE_EVENT_URL, method,postParams);		// makes a request to the server. Returns the response in a string that's json formated
+	    	
 	    	return returned_message;
 	    }
+	    
+	    
 	    // this function gets and returns a list of all of the parameters that have been filled in
 	    // will be called right before the event is sent to the server to be updated.
 		private String[] getEventParams() {

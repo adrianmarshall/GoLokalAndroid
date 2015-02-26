@@ -268,7 +268,7 @@ public class CreateEventActivity extends Activity implements OnClickListener{
 			Toast.makeText(getApplicationContext(), "Please enter a zipcode ", Toast.LENGTH_LONG).show();
 		
 		
-		if(startTime != null && endTime != null && eventDay != null){
+		if(startTime != null && endTime != null && eventDay != null && eventPhoto != null){
 			
 		
 		// Already got 'eventDay' , 'startTime' , and 'EndTime' variables when the user set them

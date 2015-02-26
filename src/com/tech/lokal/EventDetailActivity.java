@@ -273,7 +273,7 @@ public class EventDetailActivity extends Activity {
 	    public String getUserName(String user_uri) throws JSONException, ClientProtocolException, IOException{
 	    	
 	    	// This function could be updated to get all of the users information by returning the whole JSON Object instead of just the username
-	    	String BASE_URL = "http://lokalapp.co";
+	    	String BASE_URL = "http://192.168.1.9:8000";
 	    	String username = "";
 	    	
 	    	// Get the logged in users username and password
