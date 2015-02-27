@@ -59,7 +59,7 @@ public class CategoryActivity extends Activity{
 		
 		// Setup Image Buttons
 		ImageButton imgBtnFamily = (ImageButton) findViewById(R.id.ibtnFamily);
-		ImageButton imgBtnBars = (ImageButton) findViewById(R.id.ibtnBars);
+		ImageButton imgBtnNightlife = (ImageButton) findViewById(R.id.ibtnNightlife);
 		
 		
 		
@@ -97,7 +97,7 @@ public class CategoryActivity extends Activity{
  
 		});
 		
-		imgBtnBars.setOnClickListener(new OnClickListener(){
+		imgBtnNightlife.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {

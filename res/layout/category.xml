@@ -50,14 +50,14 @@
             android:background="#ffffff"
             android:maxHeight="120dp"
             android:scaleType="fitXY"
-            android:src="@drawable/btnfamily"
+            android:src="@drawable/familyxxhdpi"
             android:contentDescription="Family Category" 
             />
         
      
       
         <ImageButton
-            android:id="@+id/ibtnEnt"
+            android:id="@+id/ibtnConcert"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -65,8 +65,8 @@
             android:background="#ffffff"
             android:maxHeight="120dp"
             android:scaleType="fitXY"
-            android:src="@drawable/btnent" 
-            android:contentDescription="Entertainment Category"/>
+            android:src="@drawable/concertxxhdpi" 
+            android:contentDescription="Concert Category"/>
         
         </TableRow>
         
@@ -79,7 +79,7 @@
         android:layout_gravity="center_horizontal">
         
         <ImageButton
-            android:id="@+id/ibtnKids"
+            android:id="@+id/ibtnFood"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -88,7 +88,7 @@
             android:background="#ffffff"
             android:maxHeight="120dp"
             android:scaleType="fitXY"
-            android:src="@drawable/btnkids" 
+            android:src="@drawable/foodxxhdpi" 
             android:contentDescription="Entertainment Category"/>
 
         <ImageButton
@@ -100,7 +100,7 @@
             android:background="#ffffff"
             android:maxHeight="120dp"
             android:scaleType="fitXY"
-            android:src="@drawable/btnsports" 
+            android:src="@drawable/sportsxxhdpi" 
             android:contentDescription="Sports Category"/>
         
         </TableRow>
@@ -114,7 +114,7 @@
         android:layout_gravity="center_horizontal">
         
         <ImageButton
-            android:id="@+id/ibtnBars"
+            android:id="@+id/ibtnNightlife"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -123,11 +123,11 @@
             android:background="#ffffff"
             android:maxHeight="120dp"
             android:scaleType="fitXY"
-            android:src="@drawable/btnbars"
+            android:src="@drawable/nightlifexxhdpi"
             android:contentDescription="Bars Category" />
 
         <ImageButton
-            android:id="@+id/ibtnClubs"
+            android:id="@+id/ibtnCollege"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -135,7 +135,7 @@
             android:background="#ffffff"
             android:maxHeight="120dp"
             android:scaleType="fitXY"
-            android:src="@drawable/btnclubs" 
+            android:src="@drawable/collegexxhdpi" 
             android:contentDescription="Clubs Category"/>
         
         </TableRow>
@@ -148,7 +148,7 @@
         android:layout_gravity="center_horizontal">
         
         <ImageButton
-            android:id="@+id/ibtnMisc"
+            android:id="@+id/ibtnOutdoor"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -157,8 +157,23 @@
             android:background="#ffffff"
             android:maxHeight="120dp"
             android:scaleType="fitXY"
-            android:src="@drawable/btnmisc"
-            android:contentDescription="Music Category" />
+            android:src="@drawable/outdoorxxhdpi"
+            android:contentDescription="Outdoor Category" />
+        
+         <ImageButton
+            android:id="@+id/ibtnPhilanthropy"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:background="#ffffff"
+            android:maxHeight="120dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/philxxhdpi"
+            android:contentDescription="Philanthropy Category" />
+        
+        
 
        
         
