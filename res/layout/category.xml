@@ -28,9 +28,9 @@
     android:layout_height="wrap_content"
     android:layout_below="@+id/categoryCity" >
     
-<TableLayout 
+<TableLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="560dp" >
     
     <!--  Row 1 -->
     <TableRow 
@@ -196,7 +196,8 @@
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
     android:layout_centerHorizontal="true"
-    android:background="#FFFFFF"
-    android:text="Create an Event" />
+    android:background="#E5C41A"
+    android:text="Create an Event"
+    android:textColor="#FFFFFF" />
 
 </RelativeLayout>

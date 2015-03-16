@@ -19,7 +19,7 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class CategoryActivity extends Activity{
+public class CategoryActivity extends Activity implements OnClickListener{
 	// TO:DO implement GridView
 	//GridView gridView;
 	//ArrayList<Item> gridArray = new ArrayList<Item>();
@@ -27,6 +27,22 @@ public class CategoryActivity extends Activity{
 	
 	EditText editCity;
 	Spinner spinState;
+	
+	// Image Buttons
+	private ImageButton imgBtnFamily;
+	private ImageButton imgBtnNightlife;
+	private ImageButton imgBtnConcert;
+	private ImageButton imgBtnFood;
+	private ImageButton imgBtnSports ;
+	private ImageButton imgBtnOutdoor ;
+	private ImageButton imgBtnPhilanthropy;
+	private ImageButton imgBtnCollege;
+	
+	//Create Event button
+	private Button btnCreateEvent;
+	
+	
+	
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -58,65 +74,35 @@ public class CategoryActivity extends Activity{
 		 // Bitmap userIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.personal);
 		
 		// Setup Image Buttons
-		ImageButton imgBtnFamily = (ImageButton) findViewById(R.id.ibtnFamily);
-		ImageButton imgBtnNightlife = (ImageButton) findViewById(R.id.ibtnNightlife);
+		 imgBtnFamily = (ImageButton) findViewById(R.id.ibtnFamily);
+		 imgBtnNightlife = (ImageButton) findViewById(R.id.ibtnNightlife);
+		 imgBtnConcert = (ImageButton) findViewById(R.id.ibtnConcert);
+		 imgBtnFood = (ImageButton) findViewById(R.id.ibtnFood);
+		 imgBtnSports = (ImageButton) findViewById(R.id.ibtnSports);
+		 imgBtnOutdoor = (ImageButton) findViewById(R.id.ibtnOutdoor);
+		 imgBtnCollege = (ImageButton) findViewById(R.id.ibtnCollege);
+		 imgBtnPhilanthropy = (ImageButton) findViewById(R.id.ibtnPhilanthropy);
 		
-		
-		
-		
+		 
 		//Create Event button
-		Button createEvent = (Button) findViewById(R.id.btnCreateEvent);
+		 btnCreateEvent = (Button) findViewById(R.id.btnCreateEvent);
+		 
+		 //set the on click listeners
+		 imgBtnFamily.setOnClickListener(this);
+		 imgBtnNightlife.setOnClickListener(this);
+		 imgBtnConcert.setOnClickListener(this);
+		 imgBtnFood.setOnClickListener(this);
+		 imgBtnSports.setOnClickListener(this);
+		 imgBtnOutdoor.setOnClickListener(this);
+		 imgBtnCollege.setOnClickListener(this);
+		 imgBtnPhilanthropy.setOnClickListener(this);
+		 btnCreateEvent.setOnClickListener(this);
 		
 		
-		createEvent.setOnClickListener(new OnClickListener(){
+		
 
-			@Override
-			public void onClick(View v) {
-				// Going to the CreateEventActivity
-				Intent i = new Intent(getApplicationContext(),CreateEventActivity.class);
-				startActivity(i);
-			}
-			
-		});
 		
-		imgBtnFamily.setOnClickListener(new OnClickListener(){
-			
-			public void onClick(View arg0) {
- 
-				String city = editCity.getText().toString();
-				String state = spinState.getSelectedItem().toString();
-				
-				Toast.makeText(CategoryActivity.this, "Showing All events!", Toast.LENGTH_SHORT).show();
-				Intent i = new Intent(getApplicationContext(),EventActivity.class);
-				
-				i.putExtra("city", city);
-				i.putExtra("state", state);
-				//i.putExtra("category", "");
-				startActivity(i);
-			}
- 
-		});
-		
-		imgBtnNightlife.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				
-				String city = editCity.getText().toString();
-				String state = spinState.getSelectedItem().toString();
-				
-				Toast.makeText(CategoryActivity.this, "Heading to the Bars!", Toast.LENGTH_SHORT).show();
-				Intent i = new Intent(getApplicationContext(),EventActivity.class);
-				
-				i.putExtra("city", city);
-				i.putExtra("state", state);
-				i.putExtra("category", "Nightlife");
-				startActivity(i);
-			}
-			
-		});
 	}
-	
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -154,6 +140,86 @@ public class CategoryActivity extends Activity{
 			startActivity(i);
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+
+	@Override
+	public void onClick(View v) {
+		
+		String city = editCity.getText().toString();
+		String state = spinState.getSelectedItem().toString();
+		
+		Intent i = new Intent(getApplicationContext(),EventActivity.class);
+		
+		i.putExtra("city", city);
+		i.putExtra("state", state);
+		
+		String theCategory = "";
+		
+		// If Family Button clicked
+		if(v == imgBtnFamily){
+			theCategory = "Family";
+			i.putExtra("category", theCategory);
+			startActivity(i);
+		}
+		
+		if(v == imgBtnNightlife){
+			theCategory = "Nightlife";
+			i.putExtra("category", theCategory);
+			Toast.makeText(CategoryActivity.this, "Showing "+ theCategory +" events!", Toast.LENGTH_SHORT).show();
+			startActivity(i);
+		}
+
+		if(v == imgBtnConcert){
+			theCategory = "Concert";
+			i.putExtra("category", theCategory);
+			Toast.makeText(CategoryActivity.this, "Showing "+ theCategory +" events!", Toast.LENGTH_SHORT).show();
+			startActivity(i);
+		}
+
+		if(v == imgBtnFood){
+			theCategory = "Food";
+			i.putExtra("category", "Food");
+			Toast.makeText(CategoryActivity.this, "Showing "+ theCategory +" events!", Toast.LENGTH_SHORT).show();
+			startActivity(i);
+		}
+		
+		if(v == imgBtnSports){
+			theCategory = "Sports";
+			i.putExtra("category", "Sports");
+			Toast.makeText(CategoryActivity.this, "Showing "+ theCategory +" events!", Toast.LENGTH_SHORT).show();
+			startActivity(i);
+		}
+		
+		if(v == imgBtnOutdoor){
+			theCategory = "Outdoor";
+			i.putExtra("category", "Outdoor");
+			Toast.makeText(CategoryActivity.this, "Showing "+ theCategory +" events!", Toast.LENGTH_SHORT).show();
+			startActivity(i);
+		}
+		
+		if(v == imgBtnCollege){
+			theCategory = "Collge";
+			i.putExtra("category", theCategory);
+			Toast.makeText(CategoryActivity.this, "Showing "+ theCategory +" events!", Toast.LENGTH_SHORT).show();
+			startActivity(i);
+		}
+		
+		if(v == imgBtnPhilanthropy){
+			theCategory = "Philanthropy";
+			i.putExtra("category", theCategory);
+			Toast.makeText(CategoryActivity.this, "Showing "+ theCategory +" events!", Toast.LENGTH_SHORT).show();
+			startActivity(i);
+		}
+		
+		if(v == btnCreateEvent){
+			// Going to the CreateEventActivity
+			i = new Intent(getApplicationContext(),CreateEventActivity.class);
+			startActivity(i);
+			
+		}
+
+
 	}
 
 }

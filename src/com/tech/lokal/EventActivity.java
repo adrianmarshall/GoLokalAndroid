@@ -157,6 +157,18 @@ public class EventActivity extends ListActivity{
 					   Log.d("Equal?? :", dateParam.equals(previousDateParam) +"");
 				}else if(datechoice.equals("All Days")){
 					dateParam="";
+				}else if(datechoice.equals("Upcoming")){
+					// Get todays date 
+					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+					   //get current date time with Date()
+					   Date date = new Date();
+					   String todaysDate = dateFormat.format(date);
+					   
+					   Log.d("TodaysDate: ", todaysDate);
+					   dateParam = "&event_date__gte="+todaysDate;			// adds todays date to the dateParam
+					   Log.d("compare:",dateParam +" -prev->"+ previousDateParam);
+					   Log.d("Equal?? :", dateParam.equals(previousDateParam) +"");
+					
 				}
 				if(dateParam != previousDateParam)
 					Log.d("output: ", "It's saying they're not equal ");
