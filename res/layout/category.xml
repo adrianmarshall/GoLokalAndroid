@@ -50,7 +50,7 @@
             android:background="#ffffff"
             android:maxHeight="120dp"
             android:scaleType="fitXY"
-            android:src="@drawable/familyxxhdpi"
+            android:src="@drawable/ic_familyxxhdpi"
             android:contentDescription="Family Category" 
             />
         
@@ -65,7 +65,7 @@
             android:background="#ffffff"
             android:maxHeight="120dp"
             android:scaleType="fitXY"
-            android:src="@drawable/concertxxhdpi" 
+            android:src="@drawable/ic_concertxxhdpi" 
             android:contentDescription="Concert Category"/>
         
         </TableRow>
@@ -88,7 +88,7 @@
             android:background="#ffffff"
             android:maxHeight="120dp"
             android:scaleType="fitXY"
-            android:src="@drawable/foodxxhdpi" 
+            android:src="@drawable/ic_foodxxhdpi" 
             android:contentDescription="Entertainment Category"/>
 
         <ImageButton
@@ -100,7 +100,7 @@
             android:background="#ffffff"
             android:maxHeight="120dp"
             android:scaleType="fitXY"
-            android:src="@drawable/sportsxxhdpi" 
+            android:src="@drawable/ic_sportsxxhdpi" 
             android:contentDescription="Sports Category"/>
         
         </TableRow>
@@ -123,7 +123,7 @@
             android:background="#ffffff"
             android:maxHeight="120dp"
             android:scaleType="fitXY"
-            android:src="@drawable/nightlifexxhdpi"
+            android:src="@drawable/ic_nightlifexxhdpi"
             android:contentDescription="Bars Category" />
 
         <ImageButton
@@ -135,7 +135,7 @@
             android:background="#ffffff"
             android:maxHeight="120dp"
             android:scaleType="fitXY"
-            android:src="@drawable/collegexxhdpi" 
+            android:src="@drawable/ic_collegexxhdpi" 
             android:contentDescription="Clubs Category"/>
         
         </TableRow>
@@ -157,7 +157,7 @@
             android:background="#ffffff"
             android:maxHeight="120dp"
             android:scaleType="fitXY"
-            android:src="@drawable/outdoorxxhdpi"
+            android:src="@drawable/ic_outdoorxxhdpi"
             android:contentDescription="Outdoor Category" />
         
          <ImageButton
@@ -170,7 +170,7 @@
             android:background="#ffffff"
             android:maxHeight="120dp"
             android:scaleType="fitXY"
-            android:src="@drawable/philxxhdpi"
+            android:src="@drawable/ic_philxxhdpi"
             android:contentDescription="Philanthropy Category" />
         
         
@@ -196,7 +196,7 @@
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
     android:layout_centerHorizontal="true"
-    android:background="#E5C41A"
+    android:background="@color/mainColor"
     android:text="Create an Event"
     android:textColor="#FFFFFF" />
 
